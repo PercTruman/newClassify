@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  get '/students', to: 'students#index'
   get '/users', to: 'users#index'
   get '/teachers', to: 'teachers#index'
   post '/teachers', to: 'teachers#create'
+  post '/students', to: 'students#create'
   post '/signup', to: 'users#create'
   post '/login',to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
