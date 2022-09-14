@@ -22,7 +22,7 @@ const Home = () => {
         });
     }
   }
-  console.log(formData)
+ 
 
   const handleChange = (e) => {
     setFormData({...formData, [e.target.name] : e.target.value});
@@ -49,6 +49,8 @@ const Home = () => {
     });
   };
 
+  const teachersList = teachers.map(t => <li>{t.name}</li>)
+
   return user ? (
     <div>
       <Navbar />
@@ -67,6 +69,7 @@ const Home = () => {
         <button type="submit">Add Teacher</button>
       </form>
       <h3>Teachers</h3>
+      {teachersList}
     </div>
   ) : (
     <div>
