@@ -1,11 +1,27 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
+import { UserContext } from "./context/UserContext";
 
 function Student() {
+    const { user } = useContext(UserContext);
 
     const [formData, setFormData] = useState({
         name: ""
       })
       const [students, setStudents] = useState([])
+
+      useEffect(() => {
+        getStudents();
+      }, [user]);
+
+      function getStudents() {
+        if (user) {
+          fetch('/students')
+            .then((res) => res.json())
+            .then((data) => {
+              setStudents(data);
+            });
+        }
+      }
 
 
   const handleChange = (e) => {
@@ -32,7 +48,10 @@ function Student() {
       }
     });
   };
+
+  const studentsList = students.map(s => <li key={s.id}>{s.name}</li>)
   return (
+    <div>
     <form onSubmit={handleSubmit}>
     <h2>Add Student</h2>
     <label> Name:</label>
@@ -46,6 +65,10 @@ function Student() {
     />
       <button type="submit">Add Student</button>
     </form>
+    <h3>Students</h3>
+      {studentsList}
+    </div>
+    
   )
 }
 
