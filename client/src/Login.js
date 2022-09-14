@@ -3,7 +3,7 @@ import { UserContext } from "./context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const {  username, password, login, errorsList} =
+  const { login, errorsList} =
     useContext(UserContext);
 
   const [formData, setFormData] = useState({
@@ -28,7 +28,7 @@ const Login = () => {
       if (res.ok) {
         res.json().then((teacher) => {
           login(teacher);
-          navigate(`/teachers/${teacher.id}/students`);
+          navigate('/home');
         });
       } else {
         res.json().then((errors) => {
@@ -48,7 +48,7 @@ const Login = () => {
           type="text"
           autoComplete="on"
           id="username"
-          value={username}
+          value={formData.username}
           onChange={handleChange}
         />{" "}
         <br />
@@ -58,7 +58,7 @@ const Login = () => {
           type="password"
           autoComplete="on"
           id="password"
-          value={password}
+          value={formData.password}
           onChange={handleChange}
         />
         <br />

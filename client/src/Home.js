@@ -49,12 +49,12 @@ const Home = () => {
     });
   };
 
-  const teachersList = teachers.map(t => <li>{t.name}</li>)
+  const teachersList = teachers.map(t => <li key={t.id}>{t.name}</li>)
 
   return user ? (
     <div>
       <Navbar />
-      <h3>{user.first_name}'s Homepage</h3>
+      <h3>{user.username}'s Homepage</h3>
       <form onSubmit={handleSubmit}>
         <h2>Add Teacher</h2>
         <label> Name:</label>
