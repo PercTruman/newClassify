@@ -2,12 +2,11 @@ import React, { useState, useEffect, createContext } from "react";
 
 const UserContext = createContext();
 
-
 function UserProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [errorsList, setErrorsList] = useState([]);
- 
+  const [teachers, setTeachers] = useState([]);
 
   useEffect(() => {
     fetch("/me")
@@ -16,8 +15,12 @@ function UserProvider({ children }) {
         setUser(data);
         data.error ? setLoggedIn(false) : setLoggedIn(true);
       });
+    fetch("/teachers")
+      .then((res) => res.json())
+      .then((data) => {
+        setTeachers(data);
+      });
   }, []);
-  
 
   const login = (user) => {
     setUser(user);
@@ -41,7 +44,8 @@ function UserProvider({ children }) {
         login,
         logout,
         signup,
-    
+        teachers,
+        setTeachers,
         loggedIn,
         errorsList,
         setErrorsList,
@@ -51,6 +55,5 @@ function UserProvider({ children }) {
     </UserContext.Provider>
   );
 }
-
 
 export { UserContext, UserProvider };

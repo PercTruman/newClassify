@@ -3,25 +3,12 @@ import { UserContext } from "./context/UserContext";
 import Navbar from "./Navbar";
 
 const Home = () => {
-  const { user } = useContext(UserContext);
+  const { user, teachers, setTeachers } = useContext(UserContext);
   const [formData, setFormData] = useState({
     name: ""
   })
-  const [teachers, setTeachers] = useState([])
+ 
 
-  useEffect(() => {
-    getTeachers();
-  }, [user]);
-
-  function getTeachers() {
-    if (user) {
-      fetch('/teachers')
-        .then((res) => res.json())
-        .then((data) => {
-          setTeachers(data);
-        });
-    }
-  }
  
 
   const handleChange = (e) => {
