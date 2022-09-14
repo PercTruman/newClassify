@@ -17,6 +17,8 @@ class StudentsController < ApplicationController
         end
     end
 
+    private
+
     def student_params
         params.permit(:name)
     end

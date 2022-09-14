@@ -1,8 +1,8 @@
-import React, {useState, useEffect, useContext} from 'react'
-import { UserContext } from "./context/UserContext";
+import React, {useState, useEffect} from 'react'
+
 
 function Student() {
-    const { user } = useContext(UserContext);
+
 
     const [formData, setFormData] = useState({
         name: ""
@@ -11,18 +11,17 @@ function Student() {
 
       useEffect(() => {
         getStudents();
-      }, [user]);
+      }, []);
 
       function getStudents() {
-        if (user) {
+        
           fetch('/students')
             .then((res) => res.json())
             .then((data) => {
               setStudents(data);
             });
         }
-      }
-
+      
 
   const handleChange = (e) => {
     setFormData({...formData, [e.target.name] : e.target.value});
@@ -39,7 +38,7 @@ function Student() {
         res.json().then((newStudent) => {
           const updatedStudentList = [...students, newStudent];
           setStudents(updatedStudentList);
-          setFormData({ name: ""});
+          setFormData({name: ""});
         });
       } else {
         res.json().then((errors) => {
@@ -60,7 +59,7 @@ function Student() {
       type="text"
       autoComplete="on"
       id="name"
-      value={formData.first_name}
+      value={formData.name}
       onChange={handleChange}
     />
       <button type="submit">Add Student</button>
