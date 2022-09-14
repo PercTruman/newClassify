@@ -3,7 +3,7 @@ import { UserContext } from "./context/UserContext";
 
 
 function Subject() {
-    const { user, teachers, setTeachers } = useContext(UserContext);
+    const {  teachers } = useContext(UserContext);
   const [formData, setFormData] = useState({
     name: "",
     room_number: "",
@@ -43,8 +43,8 @@ function Subject() {
           setFormData({
             name: "",
             room_number: "",
-            time: null,
-            teacher_id: null,
+            time: "",
+            teacher_id: "",
           });
         });
       } else {
@@ -56,7 +56,7 @@ function Subject() {
   };
 
   const dropDownOptions = teachers.map((t) => (
-    <option type="integer" key={t.id} name="teacher_id" value={t.id} >
+    <option type="integer" key={t.id} name="t.id" value={t.id} >
       {t.name}
     </option>
 
@@ -98,7 +98,7 @@ function Subject() {
         <label> Assign to Teacher:</label>
         <select
           value={formData.teacher_id}
-          name="subjectAssign"
+          name="teacher_id"
           onChange={handleChange}
         >
           <option>Choose Teacher</option>

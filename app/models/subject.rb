@@ -3,5 +3,5 @@ class Subject < ApplicationRecord
     has_many :students, through: :student_subjects
 
     # validates  :name, presence: true :room_number, presence: true :time, presence: true 
-    validates  :name, :room_number, :time, presence: true 
+    validates  :name, :room_number, :time, :teacher_id, presence: true
 end
