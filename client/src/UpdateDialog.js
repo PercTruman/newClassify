@@ -1,4 +1,5 @@
-import  React, {useState} from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "./context/UserContext";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -7,14 +8,14 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export default function FormDialog() {
+export default function UpdateDialog({ id, teacher, room, time }) {
+  const { subjects, setSubjects } = useContext(UserContext);
   const [open, setOpen] = React.useState(false);
-  const [dialogFormData, setDialogFormDate] = useState({
+  const [dialogFormData, setDialogFormData] = useState({
     name: "",
     room_number: "",
     time: "",
-
-  })
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -24,32 +25,51 @@ export default function FormDialog() {
     setOpen(false);
   };
 
-  const submitForUpdate= (e)=>{
-    
-    handleClose();
-  }
-  const handleDialogFormChange =()=>{}
-  const handleClassDelete =()=>{}
+  const submitForUpdate = (e, id) => {
+    e.preventDefault();
+    fetch(`/subjects/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: dialogFormData.name,
+        room_number: dialogFormData.room_number,
+        time: dialogFormData.time
+      }),
+    })
+      .then((res) => res.json())
+      .then((updatedSubject) => {
+        const updatedSubjectList = subjects.map((s) =>
+          s.id === Number(updatedSubject.id) ? updatedSubject : s
+        );
+        setSubjects(updatedSubjectList);
+      });
 
+    handleClose();
+  };
+  const handleChange = (e) => {
+    setDialogFormData({ ...dialogFormData, [e.target.name]: e.target.value });
+  };
+  const handleClassDelete = () => {};
 
   return (
     <div>
       <Button variant="contained" onClick={handleClickOpen}>
-        {/* Add Students to {.name} */}
+        Edit Class Details
       </Button>
+
       <Dialog open={open} onClose={handleClose}>
-        <form onSubmit={(e)=>submitForUpdate(e)}>
+        <form onSubmit={(e) => submitForUpdate(e, id)}>
           <DialogTitle>Edit Class</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              To edit this class, make the necessary changes, then click
-              "Update."
+              To edit this class, make the necessary changes, then click "Save
+              Changes."
             </DialogContentText>
 
             <TextField
               value={dialogFormData.name}
-              name="name"
-              onChange={handleDialogFormChange}
+              name ="name"
+              onChange={handleChange}
               margin="dense"
               id="name"
               label="Class Name"
@@ -61,7 +81,7 @@ export default function FormDialog() {
             <TextField
               value={dialogFormData.room_number}
               name="room_number"
-              onChange={handleDialogFormChange}
+              onChange={handleChange}
               margin="dense"
               id="room_number"
               label="Room Number"
@@ -69,10 +89,10 @@ export default function FormDialog() {
               fullWidth
               variant="standard"
             />
-              <TextField
+            <TextField
               value={dialogFormData.time}
               name="time"
-              onChange={handleDialogFormChange}
+              onChange={handleChange}
               margin="dense"
               id="time"
               label="Time"
@@ -83,10 +103,17 @@ export default function FormDialog() {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit" >
+            <Button type="submit" id={id}>
               Save Changes
             </Button>
-            <Button onClick={()=> {handleClassDelete(); handleClose();}}>Delete Class</Button>
+            <Button
+              onClick={() => {
+                handleClassDelete();
+                handleClose();
+              }}
+            >
+              Delete Class
+            </Button>
           </DialogActions>
         </form>
       </Dialog>

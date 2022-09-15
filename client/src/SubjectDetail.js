@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
-// import { UserContext } from "./context/UserContext";
+import React, { useState, useEffect} from "react";
 import {useParams, useNavigate} from 'react-router-dom'
 
 function SubjectDetail() {
     const [classroom, setClassroom] = useState({})
-    // const {students} = useContext(UserContext)
  const navigate = useNavigate()
     const {id} = useParams()
 
