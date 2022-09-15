@@ -2,7 +2,7 @@ class SubjectsController < ApplicationController
 
     def index
         subjects = Subject.all
-        render json: subjects, include: :students, status: :ok
+        render json: subjects,  status: :ok
     end
 
     def show

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "./context/UserContext";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
@@ -79,6 +79,7 @@ function Subject() {
 
   const subjectsList = subjects.map((s) => <Item key={s.id} sx={{width:"40%", minWidth: "300px", margin:"20px"}}>
     <h3>Subject: {s.name}</h3>
+    <h3>Teacher: {s.teacher.name}</h3>
     <h3>Room: {s.room_number}</h3>
     <h3>Time: {s.time}</h3>
     <UpdateDialog />
@@ -110,7 +111,7 @@ function Subject() {
         <label> Time:</label>
         <input
           name="time"
-          type="time"
+          type="text"
           autoComplete="on"
           id="time"
           value={formData.time}
