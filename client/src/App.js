@@ -6,11 +6,11 @@ import Signup from "./Signup";
 import Home from "./Home";
 import Student from "./Student";
 import Subject from "./Subject";
+import SubjectDetail from "./SubjectDetail";
+import Teacher from "./Teacher";
 
-// import { UserContext } from "./context/UserContext";
 
 function App() {
-  // const context = useContext(UserContext);
 
   return (
     <div className="App">
@@ -21,6 +21,8 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/students" element={<Student />} />
         <Route path="/subjects" element={<Subject />} />
+        <Route path="/subjects/:id" element={<SubjectDetail />} />
+        <Route path="/teachers" element={<Teacher />} />
       </Routes>
     </div>
   );

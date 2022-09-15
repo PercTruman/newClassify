@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "./context/UserContext";
+import Paper from "@mui/material/Paper";
+import { styled } from "@mui/material/styles";
+
+import Grid from "@mui/material/Grid";
+import UpdateDialog from "./UpdateDialog"
 
 
 function Subject() {
@@ -11,6 +17,14 @@ function Subject() {
     teacher_id: "",
   });
   const [subjects, setSubjects] = useState([]);
+  const  navigate = useNavigate()
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+  }));
 
 
   useEffect(() => {
@@ -24,6 +38,7 @@ function Subject() {
         setSubjects(data);
       });
   }
+  console.log(subjects)
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -62,9 +77,16 @@ function Subject() {
 
   ));
 
-  const subjectsList = subjects.map((s) => <li key={s.id}>{s.name}</li>);
+  const subjectsList = subjects.map((s) => <Item key={s.id} sx={{width:"40%", minWidth: "300px", margin:"20px"}}>
+    <h3>Subject: {s.name}</h3>
+    <h3>Room: {s.room_number}</h3>
+    <h3>Time: {s.time}</h3>
+    <UpdateDialog />
+  </Item>)
+ 
   return (
     <div>
+         <button onClick={()=>navigate("/home")}>Back to Main Page</button>
       <form onSubmit={handleSubmit}>
         <h2>Add Subject</h2>
         <label> Name:</label>
@@ -106,7 +128,7 @@ function Subject() {
         </select>
         <button type="submit">Add Subject</button>
       </form>
-      <h3>Subjects</h3>
+      <h3>Existing Subjects</h3>
       {subjectsList}
     </div>
   );

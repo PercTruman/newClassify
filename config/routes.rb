@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get '/users', to: 'users#index'
   get '/subjects', to: 'subjects#index'
   post '/subjects', to: 'subjects#create'
+  get '/subjects/:id', to: 'subjects#show'
   get '/teachers', to: 'teachers#index'
   post '/teachers', to: 'teachers#create'
   post '/students', to: 'students#create'

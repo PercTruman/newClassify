@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import {useNavigate} from 'react-router-dom'
 
 
 function Student() {
@@ -8,6 +9,7 @@ function Student() {
         name: ""
       })
       const [students, setStudents] = useState([])
+      const navigate = useNavigate()
 
       useEffect(() => {
         getStudents();
@@ -64,6 +66,7 @@ function Student() {
     />
       <button type="submit">Add Student</button>
     </form>
+    <button onClick={()=>navigate("/home")}>Back to Main Page</button>
     <h3>Students</h3>
       {studentsList}
     </div>
