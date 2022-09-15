@@ -29,7 +29,7 @@ export default function FormDialog() {
     handleClose();
   }
   const handleDialogFormChange =()=>{}
-  const handleStudentDelete =()=>{}
+  const handleClassDelete =()=>{}
 
 
   return (
@@ -39,33 +39,44 @@ export default function FormDialog() {
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <form onSubmit={(e)=>submitForUpdate(e)}>
-          <DialogTitle>Edit</DialogTitle>
+          <DialogTitle>Edit Class</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              To edit this model, make the necessary changes, then click
+              To edit this class, make the necessary changes, then click
               "Update."
             </DialogContentText>
 
             <TextField
-              value={dialogFormData.number_in_collection}
-              name="number_in_collection"
+              value={dialogFormData.name}
+              name="name"
               onChange={handleDialogFormChange}
               margin="dense"
-              id="number_in_collection"
-              label="Number in Collection"
-              type="number"
+              id="name"
+              label="Class Name"
+              type="text"
               fullWidth
               variant="standard"
             />
 
             <TextField
-              value={dialogFormData.unit_points_cost}
-              name="unit_points_cost"
+              value={dialogFormData.room_number}
+              name="room_number"
               onChange={handleDialogFormChange}
               margin="dense"
-              id="unit_points_cost"
-              label="Unit Points Cost"
-              type="number"
+              id="room_number"
+              label="Room Number"
+              type="text"
+              fullWidth
+              variant="standard"
+            />
+              <TextField
+              value={dialogFormData.time}
+              name="time"
+              onChange={handleDialogFormChange}
+              margin="dense"
+              id="time"
+              label="Time"
+              type="text"
               fullWidth
               variant="standard"
             />
@@ -73,9 +84,9 @@ export default function FormDialog() {
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
             <Button type="submit" >
-              Update
+              Save Changes
             </Button>
-            <Button onClick={()=> {handleStudentDelete(); handleClose();}}>Delete</Button>
+            <Button onClick={()=> {handleClassDelete(); handleClose();}}>Delete Class</Button>
           </DialogActions>
         </form>
       </Dialog>
