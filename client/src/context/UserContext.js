@@ -8,7 +8,7 @@ function UserProvider({ children }) {
   const [errorsList, setErrorsList] = useState([]);
   const [teachers, setTeachers] = useState([]);
   const [subjects, setSubjects] = useState([]);
-
+  const [students, setStudents] = useState([]);
 
   useEffect(() => {
     fetch("/me")
@@ -22,9 +22,13 @@ function UserProvider({ children }) {
       .then((data) => {
         setTeachers(data);
       });
-      fetch("/subjects")
+    fetch("/subjects")
       .then((res) => res.json())
-      .then(data => setSubjects(data));
+      .then((data) => setSubjects(data));
+
+    fetch("/students")
+      .then((res) => res.json())
+      .then((data) => setStudents(data));
   }, []);
 
   const login = (user) => {
@@ -53,6 +57,8 @@ function UserProvider({ children }) {
         setSubjects,
         teachers,
         setTeachers,
+        students, 
+        setStudents,
         loggedIn,
         errorsList,
         setErrorsList,

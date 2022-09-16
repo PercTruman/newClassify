@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get '/subjects/:id', to: 'subjects#show'
   patch '/subjects/:id', to: 'subjects#update'
   delete '/subjects/:id', to: 'subjects#destroy'
+  post 'student_subjects', to: 'student_subjects#create'
   get '/teachers', to: 'teachers#index'
   post '/teachers', to: 'teachers#create'
   post '/students', to: 'students#create'

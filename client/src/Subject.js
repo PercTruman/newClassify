@@ -5,6 +5,7 @@ import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 
 import UpdateDialog from "./UpdateDialog";
+import AddStudentsDialog  from "./AddStudentsDialog"
 
 function Subject() {
   const { teachers, subjects, setSubjects } = useContext(UserContext);
@@ -69,7 +70,8 @@ function Subject() {
       <h3>Teacher: {s.teacher.name}</h3>
       <h3>Room: {s.room_number}</h3>
       <h3>Time: {s.time}</h3>
-      <UpdateDialog key={s.id} id={s.id} teacher = {s.teacher.name}  room = {s.room} time = {s.time}/>
+      <UpdateDialog key={s.id} id={s.id}/>
+      <AddStudentsDialog key={s.name} subjectId={s.id} />
     </Item>
   ));
 

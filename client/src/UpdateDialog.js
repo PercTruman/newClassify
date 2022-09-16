@@ -8,7 +8,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export default function UpdateDialog({ id, teacher, room, time }) {
+export default function UpdateDialog({ id}) {
   const { subjects, setSubjects } = useContext(UserContext);
   const [open, setOpen] = React.useState(false);
   const [dialogFormData, setDialogFormData] = useState({
@@ -33,7 +33,7 @@ export default function UpdateDialog({ id, teacher, room, time }) {
       body: JSON.stringify({
         name: dialogFormData.name,
         room_number: dialogFormData.room_number,
-        time: dialogFormData.time
+        time: dialogFormData.time,
       }),
     })
       .then((res) => res.json())
@@ -51,21 +51,19 @@ export default function UpdateDialog({ id, teacher, room, time }) {
   };
   const handleClassDelete = (deletedSubjectId) => {
     fetch(`/subjects/${id}`, {
-        method: "DELETE"
-  })
-   
-    .then((res) =>{  if (res.ok) {
-       
-           setSubjects(subjects.filter((s) =>(s.id !== deletedSubjectId ? s : null )))
-        
+      method: "DELETE",
+    }).then((res) => {
+      if (res.ok) {
+        setSubjects(
+          subjects.filter((s) => (s.id !== deletedSubjectId ? s : null))
+        );
       } else {
         res.json().then((errors) => {
           alert(errors.error);
         });
-      }}
-
-    
-    )}
+      }
+    });
+  };
 
   return (
     <div>
@@ -84,7 +82,7 @@ export default function UpdateDialog({ id, teacher, room, time }) {
 
             <TextField
               value={dialogFormData.name}
-              name ="name"
+              name="name"
               onChange={handleChange}
               margin="dense"
               id="name"
