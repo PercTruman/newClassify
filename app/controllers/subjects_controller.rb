@@ -36,6 +36,18 @@ class SubjectsController < ApplicationController
         
     end
 
+    def destroy
+        subject = Subject.find_by(id: params[:id])
+        if subject
+            subject.destroy
+            head :no_content
+            
+        else
+            render json: {error: "Class Not Found"}, status: :not_found
+        end
+
+    end
+
     private
     def subject_params
         params.permit(:name, :room_number, :time, :teacher_id, :id)

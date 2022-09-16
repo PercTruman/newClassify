@@ -49,7 +49,23 @@ export default function UpdateDialog({ id, teacher, room, time }) {
   const handleChange = (e) => {
     setDialogFormData({ ...dialogFormData, [e.target.name]: e.target.value });
   };
-  const handleClassDelete = () => {};
+  const handleClassDelete = (deletedSubjectId) => {
+    fetch(`/subjects/${id}`, {
+        method: "DELETE"
+  })
+   
+    .then((res) =>{  if (res.ok) {
+       
+           setSubjects(subjects.filter((s) =>(s.id !== deletedSubjectId ? s : null )))
+        
+      } else {
+        res.json().then((errors) => {
+          alert(errors.error);
+        });
+      }}
+
+    
+    )}
 
   return (
     <div>
@@ -108,7 +124,7 @@ export default function UpdateDialog({ id, teacher, room, time }) {
             </Button>
             <Button
               onClick={() => {
-                handleClassDelete();
+                handleClassDelete(id);
                 handleClose();
               }}
             >

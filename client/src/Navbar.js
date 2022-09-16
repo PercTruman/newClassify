@@ -23,7 +23,7 @@ const Navbar = () => {
            
           <h3>Hello {user.username}</h3>
           <button onClick={logoutUser}>Logout</button>
-          <button onClick={logoutUser}>Add Teacher</button>
+          <button onClick={()=>navigate("/teachers")}>Add Teacher</button>
           <button onClick={()=>navigate("/students")}>Add Student</button>
           <button onClick={()=>navigate("/subjects")}>Create New Class</button>
           <hr />
