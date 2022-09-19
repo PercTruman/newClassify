@@ -13,10 +13,10 @@ import DialogTitle from "@mui/material/DialogTitle";
 function AddStudentsDialog({ subjectId }) {
   const { students } = useContext(UserContext);
   const [open, setOpen] = React.useState(false);
-  //   const [classArray, setClassArray] = useState([]);
   const [checkedState, setCheckedState] = useState(
     new Array(students.length).fill(false)
   );
+//   const [classArray, setClassArray] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -26,23 +26,26 @@ function AddStudentsDialog({ subjectId }) {
     setOpen(false);
   };
 
-  const handleOnChange = (position) => {
-    const updatedCheckedState = checkedState.map((item, index) =>
-      index === position ? !item : item
+  const handleOnChange = (position, studentId) => {
+   const updatedCheckedState = checkedState.map((item, index) =>
+    index === position ? !item : item
     );
-
     setCheckedState(updatedCheckedState);
+ 
+   
+    
+  
   };
 
   const studentCheckboxes = students.map((s, index) => (
     <div key={s.id}>
       <input
         type="checkbox"
-        id={`custom-checkbox-${index}`}
+        id={`${index}`}
         name={s.name}
         value={s.name}
         checked={checkedState[index]}
-        onChange={() => handleOnChange(index)}
+        onChange={() => handleOnChange(index, s.id)}
       />
       <label htmlFor={`custom-checkbox-${index}`}>{s.name}</label>
     </div>
@@ -50,6 +53,17 @@ function AddStudentsDialog({ subjectId }) {
 
   const submitForUpdate = (e, subjectId) => {
     e.preventDefault();
+    const indexArray = checkedState.map((value, index) =>{
+         if (value == true){
+            return index;
+        }
+    })
+    .filter(element => element != undefined).map(indexValue => indexValue + 1)
+console.log(indexArray);
+console.log(subjectId)
+const valuePairs = indexArray.map(number => [subjectId, number])
+console.log(valuePairs)
+   
 
     fetch("/student_subjects", {
       method: "POST",

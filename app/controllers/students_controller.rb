@@ -1,6 +1,6 @@
 class StudentsController < ApplicationController
     def index
-        students = Student.all.sort_by(&:name)
+        students = Student.all
 
         render json: students, status: :ok
     end
