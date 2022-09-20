@@ -1,16 +1,17 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "./context/UserContext";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "@mui/material/styles";
 
 const Login = () => {
-  const { login, errorsList} =
-    useContext(UserContext);
+  const theme = useTheme();
+
+  const { login, errorsList } = useContext(UserContext);
 
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
-
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -28,7 +29,7 @@ const Login = () => {
       if (res.ok) {
         res.json().then((teacher) => {
           login(teacher);
-          navigate('/home');
+          navigate("/home");
         });
       } else {
         res.json().then((errors) => {

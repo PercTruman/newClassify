@@ -1,14 +1,17 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "./context/UserContext";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "@mui/material/styles";
 
 const Signup = () => {
+  const theme = useTheme();
+
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  
+
   const [email, setEmail] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  
+
   const { signup, errorsList, setErrorsList } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -30,7 +33,7 @@ const Signup = () => {
           signup(user);
           navigate("/home");
         } else {
-            setUsername("");
+          setUsername("");
           setEmail("");
           setPassword("");
           setPasswordConfirmation("");
@@ -39,7 +42,6 @@ const Signup = () => {
         }
       });
   };
-
 
   return (
     <div>

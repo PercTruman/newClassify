@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "./context/UserContext";
+import { useTheme } from "@mui/material/styles";
+
 
 import Button from "@mui/material/Button";
-// import TextField from "@mui/material/TextField";
 
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -11,12 +12,14 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 function AddStudentsDialog({ subjectId }) {
+  const theme = useTheme();
+
   const { students } = useContext(UserContext);
   const [open, setOpen] = React.useState(false);
   const [checkedState, setCheckedState] = useState(
     new Array(students.length).fill(false)
   );
-//   const [classArray, setClassArray] = useState([]);
+  //   const [classArray, setClassArray] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -27,14 +30,10 @@ function AddStudentsDialog({ subjectId }) {
   };
 
   const handleOnChange = (position, studentId) => {
-   const updatedCheckedState = checkedState.map((item, index) =>
-    index === position ? !item : item
+    const updatedCheckedState = checkedState.map((item, index) =>
+      index === position ? !item : item
     );
     setCheckedState(updatedCheckedState);
- 
-   
-    
-  
   };
 
   const studentCheckboxes = students.map((s, index) => (
@@ -53,24 +52,22 @@ function AddStudentsDialog({ subjectId }) {
 
   const submitForUpdate = (e, subjectId) => {
     e.preventDefault();
-    const indexArray = checkedState.map((value, index) =>{
-         if (value == true){
-            return index;
+    const indexArray = checkedState
+      .map((value, index) => {
+        if (value === true) {
+          return index;
         }
-    })
-    .filter(element => element != undefined).map(indexValue => indexValue + 1)
-console.log(indexArray);
-console.log(subjectId)
-const valuePairs = indexArray.map(number => [subjectId, number])
-console.log(valuePairs)
-   
+      })
+      .filter((element) => element != undefined)
+      .map((indexValue) => indexValue + 1);
+
+    const valuePairs = indexArray.map((number) => [number, subjectId]);
 
     fetch("/student_subjects", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        //    student_id:,
-        subject_id: subjectId,
+        valuePairs,
       }),
     }).then((res) => res.json());
     //   .then((updatedSubject) => {

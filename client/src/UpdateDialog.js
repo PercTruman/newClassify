@@ -7,8 +7,11 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { useTheme } from "@mui/material/styles";
 
-export default function UpdateDialog({ id}) {
+export default function UpdateDialog({ id }) {
+  const theme = useTheme();
+
   const { subjects, setSubjects } = useContext(UserContext);
   const [open, setOpen] = React.useState(false);
   const [dialogFormData, setDialogFormData] = useState({

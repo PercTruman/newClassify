@@ -1,11 +1,15 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "./context/UserContext";
 
+
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "@mui/material/styles";
 
 function Student() {
+ 
+const theme = useTheme()
   const [formData, setFormData] = useState({
-    name: "",
+    name: ""
   });
   const { students, setStudents } = useContext(UserContext);
   const navigate = useNavigate();
