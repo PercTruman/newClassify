@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "./context/UserContext";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
-
+import Button from "@mui/material/Button";
 import { useTheme } from "@mui/material/styles";
 
 import UpdateDialog from "./UpdateDialog";
@@ -71,8 +71,10 @@ function Subject() {
       <h3>Teacher: {s.teacher.name}</h3>
       <h3>Room: {s.room_number}</h3>
       <h3>Time: {s.time}</h3>
+    
       <UpdateDialog key={s.id} id={s.id} />
-      <AddStudentsDialog key={s.name} subjectId={s.id} />
+      <Button variant="contained" onClick={() => navigate(`/subjects/${s.id}`)}>Add Students to {s.name}</Button>
+      {/* <AddStudentsDialog key={s.name} subjectId={s.id} /> */}
     </Item>
   ));
 

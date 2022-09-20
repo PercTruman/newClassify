@@ -23,7 +23,6 @@ function AddStudentsDialog({ subjectId }) {
     new Array(students.length).fill(false)
   );
   //   const [classArray, setClassArray] = useState([]);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -65,6 +64,7 @@ function AddStudentsDialog({ subjectId }) {
       .map((indexValue) => indexValue + 1);
 
     const valuePairs = indexArray.map((number) => [number, subjectId]);
+
 
     fetch("/student_subjects", {
       method: "POST",

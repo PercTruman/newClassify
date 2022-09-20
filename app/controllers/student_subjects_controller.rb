@@ -1,23 +1,23 @@
+
+
 class StudentSubjectsController < ApplicationController
     def create
-        # params[:valuePairs].each do 
-        #     student_id = [0]
-        #     subject_id = [0][1]
-        #     studentClass = [student_id, subject_id]
-         
-        # end
-         student_subject = StudentSubject.create(student_subject_params)
-            if student_subject.valid?
-                render json: student_subject, status: :created
-            else 
-                render json: {error: student_subject.errors.full_messages},status: :unprocessable_entity
-            end
-    
+        subject = Subject.find_by(id: params[:id])
+        params[:indexArray].each do |index|
+            
+            student_subject = StudentSubject.create([{ :student_id => index ,  :subject_id => subject[:id] }])
+                byebug
+                if student_subject
+                    render json: student_subject, status: :created
+                else 
+                    render json: {error: student_subject.errors.full_messages},status: :unprocessable_entity
+                end
+             end
     end
 
     private
      def student_subject_params
-        params.require(:subject_id).permit(:student_id)
+        params.permit(:subject_id, :student_id)
      end
 
 end
