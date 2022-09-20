@@ -1,11 +1,11 @@
 class StudentSubjectsController < ApplicationController
     def create
-        params[:valuePairs].each do 
-            student_id = [0]
-            subject_id = [0][1]
-            studentClass = [student_id, subject_id]
+        # params[:valuePairs].each do 
+        #     student_id = [0]
+        #     subject_id = [0][1]
+        #     studentClass = [student_id, subject_id]
          
-        end
+        # end
          student_subject = StudentSubject.create(student_subject_params)
             if student_subject.valid?
                 render json: student_subject, status: :created
@@ -17,7 +17,7 @@ class StudentSubjectsController < ApplicationController
 
     private
      def student_subject_params
-        params.permit([:valuePairs])
+        params.require(:subject_id).permit(:student_id)
      end
 
 end

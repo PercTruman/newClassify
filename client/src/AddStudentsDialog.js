@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "./context/UserContext";
 import { useTheme } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 
 
 import Button from "@mui/material/Button";
@@ -13,6 +14,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 function AddStudentsDialog({ subjectId }) {
   const theme = useTheme();
+  const navigate = useNavigate();
+  
 
   const { students } = useContext(UserContext);
   const [open, setOpen] = React.useState(false);
@@ -79,7 +82,7 @@ function AddStudentsDialog({ subjectId }) {
   };
   return (
     <div>
-      <Button variant="contained" onClick={handleClickOpen}>
+      <Button variant="contained" onClick={() => navigate(`/subjects/${subjectId}`)}>
         Add Students
       </Button>
       <Dialog open={open} onClose={handleClose}>
