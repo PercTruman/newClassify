@@ -72,7 +72,8 @@ function AddStudentsDialog({ subjectId }) {
       body: JSON.stringify({
         valuePairs,
       }),
-    }).then((res) => res.json());
+    }).then((res) => console.log(res.json()))
+    .then((student_subject_array) => console.log(student_subject_array))
     //   .then((updatedSubject) => {
     //     const updatedSubjectList = subjects.map((s) =>
     //       s.id === Number(updatedSubject.id) ? updatedSubject : s
