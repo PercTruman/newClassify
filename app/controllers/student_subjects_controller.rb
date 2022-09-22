@@ -7,14 +7,16 @@ rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_resp
         student_subjects = StudentSubject.all
         render json: student_subjects
     end
-    
+
     def create
+       
         student_subject_array = []
         subject = Subject.find_by(id: params[:id])
         params[:indexArray].each do |index|
-                student_subject = StudentSubject.create([{ :student_id => index, :subject_id => subject[:id] }])
+                student_subject = StudentSubject.create!([{ :student_id => index, :subject_id => subject[:id] }])
                 student_subject_array << student_subject
                 end
+             
              render json: student_subject_array, status: :created
     end
 

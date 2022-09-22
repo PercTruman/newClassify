@@ -7,7 +7,7 @@ function Welcome() {
 
   return (
     <div>
-      <h2>Welcome to Class-ify, your hub for students and their assignments. Please
+      <h2>Welcome to Class-ify, your hub for campus logistics! Please
       login or signup.</h2>
       <NavLink to="/login">
         <button>Login</button>
