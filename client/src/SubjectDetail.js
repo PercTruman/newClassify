@@ -53,7 +53,7 @@ function SubjectDetail() {
         }
       })
       .filter((element) => element !== null)
-      .map((indexValue) => indexValue );
+      // .map((indexValue) => indexValue );
 
 
     fetch(`/student_subjects/${id}`, {
