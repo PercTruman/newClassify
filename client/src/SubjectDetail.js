@@ -73,6 +73,9 @@ function SubjectDetail() {
       );
   };
   const targetSubject = subjects.find((subject) => subject.id === parseInt(id));
+
+  if (!targetSubject) return null; 
+  
   const enrolledStudents = targetSubject.students.map((student) => (
     <h5 key={student.id}>{student.name}</h5>
   ));
