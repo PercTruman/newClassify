@@ -3,6 +3,8 @@
 class StudentSubjectsController < ApplicationController
 
 rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
+
+# rescue_from ActiveRecord::RecordInvalid, with: :render_invalid_record_response
     def index
         student_subjects = StudentSubject.all
         render json: student_subjects
@@ -11,9 +13,8 @@ rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_resp
     def create
        
         student_subject_array = []
-        subject = Subject.find_by(id: params[:id])
         params[:indexArray].each do |index|
-                student_subject = StudentSubject.create!([{ :student_id => index, :subject_id => subject[:id] }])
+               student_subject = StudentSubject.find_or_create_by!(student_id: index, subject_id: params[:id])
                 student_subject_array << student_subject
                 end
              

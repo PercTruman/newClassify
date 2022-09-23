@@ -8,7 +8,6 @@ class StudentsController < ApplicationController
     def create
         def create
             student = Student.new(student_params)
-        
             if student.save
               render json: student, status: :ok
             else

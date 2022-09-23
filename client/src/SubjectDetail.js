@@ -11,16 +11,20 @@ function SubjectDetail() {
   const { id } = useParams();
   const [checkedState, setCheckedState] = useState([]);
   const [studentIds, setStudentIds] = useState([]);
-  // const [targetSubject, setTargetSubject] = useState({});
+  const [studentNames, setStudentNames] = useState([]);
+  const [targetSubject, setTargetSubject] = useState([]);
+  const [enrolledStudents, setEnrolledStudents] = useState([]);
 
   useEffect(() => {
-    setCheckedState(new Array(students.length).fill(false))
-    setStudentIds(students.map(student => student.id))
-  }, [students]);
+    setCheckedState(new Array(students.length).fill(false));
+    setStudentIds(students.map((student) => student.id));
+    setStudentNames(students.map((student) => student.name));
+    setTargetSubject(subjects.find((subject) => subject.id === parseInt(id)));
+  }, [students, subjects]);
 
-  // useEffect(() => {
-  //   setTargetSubject(subjects.find((subject) => subject.id === id));
-  // }, [subjects]);
+  useEffect(() => {
+    if (targetSubject) setEnrolledStudents(targetSubject.students);
+  }, [targetSubject]);
 
   const handleOnChange = (position) => {
     const updatedCheckedState = checkedState.map((item, index) =>
@@ -52,9 +56,7 @@ function SubjectDetail() {
           return null;
         }
       })
-      .filter((element) => element !== null)
-      // .map((indexValue) => indexValue );
-
+      .filter((element) => element !== null);
 
     fetch(`/student_subjects/${id}`, {
       method: "POST",
@@ -67,17 +69,25 @@ function SubjectDetail() {
       }),
     })
       .then((res) => res.json())
-      .then((student_subject_array) =>
-        console.log(student_subject_array)
-        // alert(`${student_subject_array.length} student(s) added to class.`)
-      );
+      .then((student_subject_array) => {
+        addStudentNamesToList(student_subject_array);
+      });
   };
-  const targetSubject = subjects.find((subject) => subject.id === parseInt(id));
 
-  if (!targetSubject) return null; 
-  
-  const enrolledStudents = targetSubject.students.map((student) => (
-    <h5 key={student.id}>{student.name}</h5>
+  function addStudentNamesToList(array) {
+    const studentIndexes = array.map((a) => a.student_id);
+    const filteredStudents = students.filter((s) =>
+      studentIndexes.includes(s.id))
+
+    
+    setEnrolledStudents([...enrolledStudents, ...filteredStudents]);
+  }
+
+  if (!targetSubject || !enrolledStudents) return <h2>Loading...</h2>;
+
+  const displayedStudents = enrolledStudents.map((student) => (
+    <div key={student.id}> <h5>{student.name}</h5></div>
+   
   ));
 
   if (subjects) {
@@ -92,9 +102,8 @@ function SubjectDetail() {
           {studentCheckboxes}
           <button type="submit">Add Students</button>
         </form>
-        <h1>Enrolled Students:</h1>
-          {enrolledStudents}
-        
+        <h3>Currently Enrolled Students:</h3>
+        {displayedStudents}
       </div>
     );
   } else {

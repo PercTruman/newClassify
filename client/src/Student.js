@@ -26,14 +26,16 @@ const theme = useTheme()
       body: JSON.stringify(formData),
     }).then((res) => {
       if (res.ok) {
-        res.json().then((newStudent) => {
+       res.json()
+        .then((newStudent) => {
           const updatedStudentList = [...students, newStudent];
           setStudents(updatedStudentList);
           setFormData({ name: "" });
         });
       } else {
-        res.json().then((errors) => {
-          alert(errors.error);
+        res.json().then(() => {
+          alert("Student Already Exists");
+          setFormData({ name: "" })
         });
       }
     });
