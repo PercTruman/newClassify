@@ -11,14 +11,12 @@ function SubjectDetail() {
   const { id } = useParams();
   const [checkedState, setCheckedState] = useState([]);
   const [studentIds, setStudentIds] = useState([]);
-  const [studentNames, setStudentNames] = useState([]);
   const [targetSubject, setTargetSubject] = useState([]);
   const [enrolledStudents, setEnrolledStudents] = useState([]);
 
   useEffect(() => {
     setCheckedState(new Array(students.length).fill(false));
     setStudentIds(students.map((student) => student.id));
-    setStudentNames(students.map((student) => student.name));
     setTargetSubject(subjects.find((subject) => subject.id === parseInt(id)));
   }, [students, subjects]);
 
@@ -69,25 +67,26 @@ function SubjectDetail() {
       }),
     })
       .then((res) => res.json())
-      .then((student_subject_array) => {
-        addStudentNamesToList(student_subject_array);
-      });
+      .then((student_subject_array) =>
+        addStudentNamesToList(student_subject_array)
+      );
   };
-
+console.log(enrolledStudents)
   function addStudentNamesToList(array) {
     const studentIndexes = array.map((a) => a.student_id);
     const filteredStudents = students.filter((s) =>
-      studentIndexes.includes(s.id))
+      studentIndexes.includes(s.id)
+    );
 
-    
     setEnrolledStudents([...enrolledStudents, ...filteredStudents]);
   }
-
+console.log(enrolledStudents)
   if (!targetSubject || !enrolledStudents) return <h2>Loading...</h2>;
 
   const displayedStudents = enrolledStudents.map((student) => (
-    <div key={student.id}> <h5>{student.name}</h5></div>
-   
+    <div key={student.id}>
+      <h5>{student.name}</h5>
+    </div>
   ));
 
   if (subjects) {
