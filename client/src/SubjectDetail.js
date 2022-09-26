@@ -76,22 +76,18 @@ function SubjectDetail() {
 
   function addStudentNamesToList(array) {
     const studentIndexes = array.map((a) => a.student_id); //returns indexes from backend
-   
-    const enrolledStudentIndexes = enrolledStudents.map(es => es.id) //grabs currently enrolled students' indexes
-  
-    const totalOfStudentIndexes = studentIndexes.concat(enrolledStudentIndexes) //merges 2 previous arrays into one array
-   
-    const onlyUniqueIndexes = [...new Set(totalOfStudentIndexes)] //removes duplicate indexes
 
-    const studentsForDisplay = students.filter((s) => onlyUniqueIndexes.includes(s.id) ? s : null)
-    // const filteredStudents =  // finds students objects whose ids have come back from backend
-    //   studentIndexes.includes(s.id))
-    //   console.log(filteredStudents)
-    
-    
-    // console.log(studentsForDisplay)
-    
-    setEnrolledStudents(studentsForDisplay)
+    const enrolledStudentIndexes = enrolledStudents.map((es) => es.id); //grabs currently enrolled students' indexes
+
+    const totalOfStudentIndexes = studentIndexes.concat(enrolledStudentIndexes); //merges 2 previous arrays into one array
+
+    const onlyUniqueIndexes = [...new Set(totalOfStudentIndexes)]; //removes duplicate indexes
+
+    const studentsForDisplay = students.filter((s) =>
+      onlyUniqueIndexes.includes(s.id) ? s : null
+    );
+
+    setEnrolledStudents(studentsForDisplay);
   }
 
   if (!targetSubject || !enrolledStudents) return <h2>Loading...</h2>;

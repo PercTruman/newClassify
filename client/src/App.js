@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
+import './App.css';
 import theme from './UI/theme'
 import Login from "./Login";
 import Welcome from "./Welcome";

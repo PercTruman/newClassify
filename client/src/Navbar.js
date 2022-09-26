@@ -20,8 +20,8 @@ const Navbar = () => {
   };
   if (loggedIn) {
     return (
-      <div>
-        <h2>Navbar Component</h2>
+      <div >
+        <h2 > {theme.typography.fontFamily}Navbar Component</h2>
 
         <h3>Hello {user.username}</h3>
         <button onClick={logoutUser}>Logout</button>

@@ -1,5 +1,8 @@
 import { createTheme } from "@mui/material/styles";
- const theme = createTheme({
+
+const font = "'Chilanka', sans-serif";
+
+const theme = createTheme({
   palette: {
     common: {
       black: "#000",
@@ -17,10 +20,8 @@ import { createTheme } from "@mui/material/styles";
     contrastText: "#fff",
   },
   typography: {
-    allVariants: {
-      fontFamily: ["Chilanka", "Helvetica"],
-      fontSize: 16,
-    },
+    fontFamily: font,
+    fontSize: 16,
   },
 });
 export default theme;
