@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "./context/UserContext";
-
+import Navbar from "./Navbar";
 
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
@@ -43,7 +43,9 @@ const theme = useTheme()
 
   const studentsList = students.map((s) => <li key={s.id}>{s.name}</li>);
   return (
+    
     <div>
+      <Navbar />
       <form onSubmit={handleSubmit}>
         <h2>Add Student</h2>
         <label> Name:</label>

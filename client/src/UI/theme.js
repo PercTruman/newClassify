@@ -14,10 +14,10 @@ const theme = createTheme({
     default: "#fafafa",
   },
   primary: {
-    light: "rgba(89, 210, 188, 1)",
-    main: "rgba(20, 160, 140, 1)",
-    dark: "rgba(0, 113, 95, 1)",
-    contrastText: "#fff",
+    light: "9FCEE2",
+    main: "556f7a",
+    dark: "r2B393E",
+    contrastText: "DD6C4D",
   },
   typography: {
     fontFamily: font,
