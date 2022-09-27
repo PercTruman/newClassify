@@ -74,38 +74,42 @@ function Subject() {
   ));
 
   const subjectsList = subjects.map((s) => (
-    <Item
+    <Grid
+      item
       key={s.id}
       sx={{
-        backgroundColor: "#A5ADB5",
         width: "40%",
-        minWidth: "300px",
+        minWidth: "200px",
+        maxWidth: "400px",
+        padding: "20px",
         margin: "20px",
+        textAlign: "center",
       }}
     >
-      <h3>Subject: {s.name}</h3>
-      <h3>Teacher: {s.teacher.name}</h3>
-      <h3>Room: {s.room_number}</h3>
-      <h3>Time: {s.time}</h3>
+      <Paper sx={{paddingTop: "1rem"}}>
+        <h3>Subject: {s.name}</h3>
+        <h3>Teacher: {s.teacher.name}</h3>
+        <h3>Room: {s.room_number}</h3>
+        <h3>Time: {s.time}</h3>
 
-      <UpdateDialog key={s.id} id={s.id} />
-      <Button
-        sx={{ mt: 2 }}
-        variant="contained"
-        onClick={() => navigate(`/subjects/${s.id}`)}
-      >
-        Add Students to {s.name}
-      </Button>
-      {/* <AddStudentsDialog key={s.name} subjectId={s.id} /> */}
-    </Item>
+        <UpdateDialog key={s.id} id={s.id} />
+        <Button
+          sx={{ mt: 2, mb: 2 }}
+          variant="contained"
+          onClick={() => navigate(`/subjects/${s.id}`)}
+        >
+          Add Students to {s.name}
+        </Button>
+      </Paper>
+    </Grid>
   ));
 
   return (
     <div>
       <Navbar />
-      {/* <button onClick={() => navigate("/home")}>Back to Main Page</button> */}
+
       <Box sx={{ flexGrow: 1 }}>
-        <Grid sx={{justifyContent:"center"}} container spacing={2}>
+        <Grid sx={{ justifyContent: "center" }} container spacing={2}>
           <form onSubmit={handleSubmit}>
             <h2>Create New Class</h2>
 
@@ -118,7 +122,7 @@ function Subject() {
                 name="name"
                 type="text"
                 autoComplete="on"
-                value={formData.name}
+                value={formData.name} 
                 onChange={handleChange}
               />
             </Grid>
@@ -160,7 +164,7 @@ function Subject() {
               </FormControl>
             </Box>
             <Button
-              sx={{ mb: "5em", padding: "7px" }}
+              sx={{ mb: "5em", marginLeft: "4em", padding: "7px" }}
               variant="contained"
               type="submit"
             >
@@ -169,8 +173,8 @@ function Subject() {
           </form>
         </Grid>
       </Box>
-      <h2>Existing Classes</h2>
-      {subjectsList}
+      <Box sx={{textAlign:"center" }}><h2>Existing Classes</h2></Box>
+      <Grid container justifyContent={"center"}>{subjectsList}</Grid>
     </div>
   );
 }
