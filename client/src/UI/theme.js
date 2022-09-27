@@ -9,10 +9,10 @@ const theme = createTheme({
       white: "#fff",
     },
     primary: {
-      light: "#9FCEE2",
+      light: "fff",
       main: "#0C546A",
       dark: "#r2B393E",
-      contrastText: "#DFAC9E",
+      contrastText: "#E7C92F",
     },
     background: {
       paper: "#a5adb5",
@@ -23,7 +23,8 @@ const theme = createTheme({
 
   typography: {
     fontFamily: font,
-    fontSize: 16
+    fontSize: 16,
+    fontWeight: "bold"
    
   },
 });

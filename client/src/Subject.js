@@ -86,7 +86,7 @@ function Subject() {
         textAlign: "center",
       }}
     >
-      <Paper sx={{paddingTop: "1rem"}}>
+      <Paper elevation={24} sx={{paddingTop: "1rem"}}>
         <h3>Subject: {s.name}</h3>
         <h3>Teacher: {s.teacher.name}</h3>
         <h3>Room: {s.room_number}</h3>
@@ -108,10 +108,10 @@ function Subject() {
     <div>
       <Navbar />
 
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{  flexGrow: 1 }}>
         <Grid sx={{ justifyContent: "center" }} container spacing={2}>
           <form onSubmit={handleSubmit}>
-            <h2>Create New Class</h2>
+            <h2 style={{marginTop:"3rem", marginLeft:"2rem"}}>Create New Class</h2>
 
             <Grid xs>
               <TextField

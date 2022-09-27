@@ -100,19 +100,19 @@ const Navbar = () => {
                   onClick={() => navigate("/teachers")}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  Add Teacher
+                  Teachers
                 </Button>
                 <Button
                   onClick={() => navigate("/students")}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  Add Student
+                  Students
                 </Button>
                 <Button
                   onClick={() => navigate("/subjects")}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  Add Subject
+                  Subjects
                 </Button>
               </Box>
               <h3>Hello {user.username}</h3>

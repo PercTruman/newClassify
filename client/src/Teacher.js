@@ -2,6 +2,10 @@ import React, { useState, useContext } from "react";
 import { UserContext } from "./context/UserContext";
 import Navbar from "./Navbar";
 import { useTheme } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Unstable_Grid2";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 function Teacher() {
   const theme = useTheme();
@@ -35,26 +39,51 @@ function Teacher() {
       }
     });
   };
-  const teachersList = teachers.map((t) => <li key={t.id}>{t.name}</li>);
+  const teachersList = teachers.map((t) => 
+      <Grid 
+          item 
+          key={t.id}
+          sx={{
+            width: "40%",
+         
+            maxWidth: "50px",
+            // padding: "20px",
+            margin: "auto",
+            textAlign: "center",
+          }}>{t.name}
+
+      </Grid>);
   return user ? (
     <div>
       <Navbar />
-      <h3>{user.username}'s Homepage</h3>
-      <form onSubmit={handleSubmit}>
-        <h2>Add Teacher</h2>
-        <label> Name:</label>
-        <input
-          name="name"
-          type="text"
-          autoComplete="on"
-          id="name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-        <button type="submit">Add Teacher</button>
-      </form>
-      <h3>Teachers</h3>
-      {teachersList}
+      {/* <h3>{user.username}'s Homepage</h3> */}
+        <Box sx={{flexGrow:1}}>
+          <Grid sx={{ justifyContent: "center" }} container spacing={2}>
+          <form onSubmit={handleSubmit}>
+            <h2>Add Teacher</h2>
+         
+            <TextField 
+            label="Name"
+            size = "small"
+              name="name"
+              type="text"
+              autoComplete="on"
+              id="name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+            <Button variant = "contained" type="submit">Add Teacher</Button>
+          </form>
+          </Grid>
+          </Box>
+          <Grid container>
+        
+            <Grid>
+          <h2>Current Teachers</h2>
+          {teachersList}
+          </Grid>
+          </Grid>
+      
     </div>
   ) : (
     <div>
