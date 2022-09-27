@@ -4,9 +4,14 @@ import { UserContext } from "./context/UserContext";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useTheme } from "@mui/material/styles";
+import Grid from "@mui/material/Unstable_Grid2";
 
 import UpdateDialog from "./UpdateDialog";
 import Navbar from "./Navbar";
@@ -63,9 +68,9 @@ function Subject() {
   };
 
   const dropDownOptions = teachers.map((t) => (
-    <option key={t.id} type="integer" name="t.id" value={t.id}>
+    <MenuItem key={t.id} type="integer" name="t.id" value={t.id}>
       {t.name}
-    </option>
+    </MenuItem>
   ));
 
   const subjectsList = subjects.map((s) => (
@@ -99,56 +104,72 @@ function Subject() {
     <div>
       <Navbar />
       {/* <button onClick={() => navigate("/home")}>Back to Main Page</button> */}
-      <form onSubmit={handleSubmit}>
-        <h2>Create New Class</h2>
-     
-        <TextField
-        label = "Name:"
-          size="small"
-          id="outlined-basic"
-          variant="outlined"
-          name="name"
-          type="text"
-          autoComplete="on"
-          value={formData.name}
-          onChange={handleChange}
-        />
-       
-        <TextField 
-                  size="small"
-                  label="Room Number:"
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid sx={{justifyContent:"center"}} container spacing={2}>
+          <form onSubmit={handleSubmit}>
+            <h2>Create New Class</h2>
 
-          name="room_number"
-          type="text"
-          autoComplete="on"
-          id="room_number"
-          value={formData.room_number}
-          onChange={handleChange}
-        />
-       
-        <TextField
-        label = "Time"
-          name="time"
-          size = "small"
-          type="text"
-          autoComplete="on"
-          id="time"
-          value={formData.time}
-          onChange={handleChange}
-        />
+            <Grid xs>
+              <TextField
+                label="Name:"
+                size="small"
+                id="outlined-basic"
+                variant="outlined"
+                name="name"
+                type="text"
+                autoComplete="on"
+                value={formData.name}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid xs>
+              <TextField
+                size="small"
+                label="Room Number:"
+                name="room_number"
+                type="text"
+                autoComplete="on"
+                id="room_number"
+                value={formData.room_number}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid xs>
+              <TextField
+                label="Time"
+                name="time"
+                size="small"
+                type="text"
+                autoComplete="on"
+                id="time"
+                value={formData.time}
+                onChange={handleChange}
+              />
+            </Grid>
 
-        <label> Assign to Teacher:</label>
-        <select
-          value={formData.teacher_id}
-          name="teacher_id"
-          onChange={handleChange}
-        >
-          <option>Choose Teacher</option>
-          {dropDownOptions}
-        </select>
-        <Button sx={{padding:"7px"}}variant= "contained" type = "submit">Add Subject </Button>
-      </form>
-      <h3>Existing Classes</h3>
+            <Box sx={{ maxWidth: "100%" }}>
+              <FormControl fullWidth sx={{ mb: "1em" }}>
+                <InputLabel> Assign to Teacher</InputLabel>
+                <Select
+                  value={formData.teacher_id}
+                  name="teacher_id"
+                  onChange={handleChange}
+                >
+                  {dropDownOptions}
+                </Select>
+              </FormControl>
+            </Box>
+            <Button
+              sx={{ mb: "5em", padding: "7px" }}
+              variant="contained"
+              type="submit"
+            >
+              Add Subject{" "}
+            </Button>
+          </form>
+        </Grid>
+      </Box>
+      <h2>Existing Classes</h2>
       {subjectsList}
     </div>
   );

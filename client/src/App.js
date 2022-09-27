@@ -17,7 +17,7 @@ import Teacher from "./Teacher";
 function App() {
   return (
     <div className="App">
-      <ThemeProvider theme={theme}>
+      <ThemeProvider  theme={theme}>
         <Routes>
           <Route path="/" element={<Welcome />} />
           <Route path="/login" element={<Login />} />
