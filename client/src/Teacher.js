@@ -39,32 +39,30 @@ function Teacher() {
       }
     });
   };
-  const teachersList = teachers.map((t) => 
-      <Grid 
-          item 
-          key={t.id}
-          sx={{
-            width: "40%",
-         
-            maxWidth: "50px",
-            // padding: "20px",
-            margin: "auto",
-            textAlign: "center",
-          }}>{t.name}
-
-      </Grid>);
+  const teachersList = teachers.map((t) => (
+    <Grid
+      item
+      key={t.id}
+      sx={{
+        padding: "10px",
+        margin: "auto",
+        textAlign: "center",
+      }}
+    >
+      {t.name}
+    </Grid>
+  ));
   return user ? (
     <div>
       <Navbar />
-      {/* <h3>{user.username}'s Homepage</h3> */}
-        <Box sx={{flexGrow:1}}>
-          <Grid sx={{ justifyContent: "center" }} container spacing={2}>
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid sx={{ justifyContent: "center" }} container spacing={2}>
           <form onSubmit={handleSubmit}>
-            <h2>Add Teacher</h2>
-         
-            <TextField 
-            label="Name"
-            size = "small"
+            <h2 style = {{marginLeft:"8rem"}}>Add Teacher</h2>
+
+            <TextField
+              label="Name"
+              size="small"
               name="name"
               type="text"
               autoComplete="on"
@@ -72,18 +70,22 @@ function Teacher() {
               value={formData.name}
               onChange={handleChange}
             />
-            <Button variant = "contained" type="submit">Add Teacher</Button>
+            <Button
+              sx={{ marginLeft: "2rem" }}
+              variant="contained"
+              type="submit"
+            >
+              Add Teacher
+            </Button>
           </form>
-          </Grid>
-          </Box>
-          <Grid container>
-        
-            <Grid>
-          <h2>Current Teachers</h2>
+        </Grid>
+      </Box>
+      <Grid container sx={{ justifyContent: "center" }}>
+        <Grid>
+          <h2 style={{ marginTop: "4rem" }}>Current Faculty</h2>
           {teachersList}
-          </Grid>
-          </Grid>
-      
+        </Grid>
+      </Grid>
     </div>
   ) : (
     <div>
