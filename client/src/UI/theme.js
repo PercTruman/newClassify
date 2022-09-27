@@ -8,20 +8,23 @@ const theme = createTheme({
       black: "#000",
       white: "#fff",
     },
+    primary: {
+      light: "#9FCEE2",
+      main: "#0C546A",
+      dark: "#r2B393E",
+      contrastText: "#DF9784",
+    },
+    background: {
+      paper: "#798086",
+      default: "#b79fad"
+    },
   },
-  background: {
-    paper: "#fff",
-    default: "#fafafa",
-  },
-  primary: {
-    light: "9FCEE2",
-    main: "556f7a",
-    dark: "r2B393E",
-    contrastText: "DD6C4D",
-  },
+
+
   typography: {
     fontFamily: font,
-    fontSize: 16,
+    fontSize: 16
+   
   },
 });
 export default theme;

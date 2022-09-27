@@ -8,6 +8,7 @@ import  Button from "@mui/material/Button"
 import { useTheme } from "@mui/material/styles";
 
 import UpdateDialog from "./UpdateDialog";
+import Navbar from "./Navbar";
 // import AddStudentsDialog from "./AddStudentsDialog";
 
 function Subject() {
@@ -67,21 +68,22 @@ function Subject() {
   ));
 
   const subjectsList = subjects.map((s) => (
-    <Item key={s.id} sx={{ width: "40%", minWidth: "300px", margin: "20px" }}>
+    <Item   key={s.id} sx={{  backgroundColor: "#A5ADB5", width: "40%", minWidth: "300px", margin: "20px" }}>
       <h3>Subject: {s.name}</h3>
       <h3>Teacher: {s.teacher.name}</h3>
       <h3>Room: {s.room_number}</h3>
       <h3>Time: {s.time}</h3>
     
       <UpdateDialog key={s.id} id={s.id} />
-      <Button variant="contained" onClick={() => navigate(`/subjects/${s.id}`)}>Add Students to {s.name}</Button>
+      <Button  sx={{mt: 2}}variant="contained" onClick={() => navigate(`/subjects/${s.id}`)}>Add Students to {s.name}</Button>
       {/* <AddStudentsDialog key={s.name} subjectId={s.id} /> */}
     </Item>
   ));
 
   return (
     <div>
-      <button onClick={() => navigate("/home")}>Back to Main Page</button>
+      <Navbar/>
+      {/* <button onClick={() => navigate("/home")}>Back to Main Page</button> */}
       <form onSubmit={handleSubmit}>
         <h2>Create New Class</h2>
         <label> Name:</label>
