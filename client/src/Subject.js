@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "./context/UserContext";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
-import  Button from "@mui/material/Button"
-
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 import { useTheme } from "@mui/material/styles";
 
 import UpdateDialog from "./UpdateDialog";
@@ -68,35 +69,55 @@ function Subject() {
   ));
 
   const subjectsList = subjects.map((s) => (
-    <Item   key={s.id} sx={{  backgroundColor: "#A5ADB5", width: "40%", minWidth: "300px", margin: "20px" }}>
+    <Item
+      key={s.id}
+      sx={{
+        backgroundColor: "#A5ADB5",
+        width: "40%",
+        minWidth: "300px",
+        margin: "20px",
+      }}
+    >
       <h3>Subject: {s.name}</h3>
       <h3>Teacher: {s.teacher.name}</h3>
       <h3>Room: {s.room_number}</h3>
       <h3>Time: {s.time}</h3>
-    
+
       <UpdateDialog key={s.id} id={s.id} />
-      <Button  sx={{mt: 2}}variant="contained" onClick={() => navigate(`/subjects/${s.id}`)}>Add Students to {s.name}</Button>
+      <Button
+        sx={{ mt: 2 }}
+        variant="contained"
+        onClick={() => navigate(`/subjects/${s.id}`)}
+      >
+        Add Students to {s.name}
+      </Button>
       {/* <AddStudentsDialog key={s.name} subjectId={s.id} /> */}
     </Item>
   ));
 
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       {/* <button onClick={() => navigate("/home")}>Back to Main Page</button> */}
       <form onSubmit={handleSubmit}>
         <h2>Create New Class</h2>
-        <label> Name:</label>
-        <input
+     
+        <TextField
+        label = "Name:"
+          size="small"
+          id="outlined-basic"
+          variant="outlined"
           name="name"
           type="text"
           autoComplete="on"
-          id="name"
           value={formData.name}
           onChange={handleChange}
         />
-        <label> Room Number:</label>
-        <input
+       
+        <TextField 
+                  size="small"
+                  label="Room Number:"
+
           name="room_number"
           type="text"
           autoComplete="on"
@@ -104,9 +125,11 @@ function Subject() {
           value={formData.room_number}
           onChange={handleChange}
         />
-        <label> Time:</label>
-        <input
+       
+        <TextField
+        label = "Time"
           name="time"
+          size = "small"
           type="text"
           autoComplete="on"
           id="time"
@@ -123,7 +146,7 @@ function Subject() {
           <option>Choose Teacher</option>
           {dropDownOptions}
         </select>
-        <button type="submit">Add Subject</button>
+        <Button sx={{padding:"7px"}}variant= "contained" type = "submit">Add Subject </Button>
       </form>
       <h3>Existing Classes</h3>
       {subjectsList}
