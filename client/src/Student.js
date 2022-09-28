@@ -57,7 +57,7 @@ function Student() {
       <Box sx={{ flexGrow: 1 }}>
         <Grid sx={{ justifyContent: "center" }} container spacing={2}>
           <form onSubmit={handleSubmit}>
-            <h2 style ={{marginLeft: "8rem"}}>Add Student</h2>
+            <h2 style ={{textAlign:"center"}}>Add Student</h2>
 
             <TextField
               size="small"

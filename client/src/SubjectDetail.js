@@ -3,8 +3,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import { UserContext } from "./context/UserContext";
 import Navbar from "./Navbar";
-import Student from "./Student";
-import { es } from "date-fns/locale";
+
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Unstable_Grid2";
+import Button from "@mui/material/Button";
 
 function SubjectDetail() {
   const theme = useTheme();
@@ -93,25 +95,56 @@ function SubjectDetail() {
   if (!targetSubject || !enrolledStudents) return <h2>Loading...</h2>;
 
   const displayedStudents = enrolledStudents.map((student) => (
-    <div key={student.id}>
-      <h5>{student.name}</h5>
-    </div>
+    <Grid
+      key={student.id}
+      sx={{ padding: "10px", margin: "auto", textAlign: "center" }}
+    >
+      {student.name}
+    </Grid>
   ));
 
   if (subjects) {
     return (
       <div>
         <Navbar />
-        <h1>Class Detail Page</h1>
-        <button onClick={() => navigate("/subjects")}>
-          Back to Subjects Main Page
-        </button>
-        <form onSubmit={submitForUpdate}>
-          {studentCheckboxes}
-          <button type="submit">Add Students</button>
-        </form>
-        <h3>Currently Enrolled Students:</h3>
-        {displayedStudents}
+        <Box sx={{ flexGrow: 1 }}>
+          <h2 style={{ textAlign: "center" }}>{`${targetSubject.name} Detail`}</h2>
+          <Grid sx={{ justifyContent: "center" }} container spacing={2}>
+            <Grid>
+              <form onSubmit={submitForUpdate}>{studentCheckboxes}</form>
+            </Grid>
+          </Grid>
+          <Grid
+            sx={{ justifyContent: "center" }}
+            container
+            spacing={2}
+            marginBottom="4rem"
+          >
+            <Grid>
+              <Button
+                sx={{ marginLeft: "2rem", marginTop: "2rem" }}
+                variant="contained"
+                type="submit"
+              >
+                Add Students
+              </Button>
+
+              <Button
+                variant="contained"
+                onClick={() => navigate("/subjects")}
+                sx={{ marginLeft: "2rem", marginTop: "2rem" }}
+              >
+                Back to All Subjects
+              </Button>
+            </Grid>
+          </Grid>
+        </Box>
+        <Grid container sx={{ justifyContent: "center" }}>
+          <Grid>
+            <h3>Currently Enrolled Students:</h3>
+            {displayedStudents}
+          </Grid>
+        </Grid>
       </div>
     );
   } else {
