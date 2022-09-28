@@ -2,6 +2,10 @@ import React, { useState, useContext } from "react";
 import { UserContext } from "./context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
+import Button from "@mui/material/Button";
+
+import Grid from "@mui/material/Unstable_Grid2";
+import TextField from "@mui/material/TextField";
 
 const Login = () => {
   const theme = useTheme();
@@ -41,10 +45,14 @@ const Login = () => {
 
   return (
     <div>
+      <Grid sx={{ justifyContent: "center" }} container spacing={2}>
+        <Grid item>
       <form onSubmit={handleSubmit}>
-        <h2>Login Component</h2>
-        <label>Username:</label>
-        <input
+        <h2 style = {{marginLeft:"4rem"}}>Login</h2>
+        <TextField 
+        sx={{marginBottom: "2rem"}}
+          size = "small"
+          label="Username"
           name="username"
           type="text"
           autoComplete="on"
@@ -53,8 +61,10 @@ const Login = () => {
           onChange={handleChange}
         />{" "}
         <br />
-        <label>Password:</label>
-        <input
+        
+        <TextField 
+          label = "Password"
+          size = "small"
           name="password"
           type="password"
           autoComplete="on"
@@ -63,9 +73,14 @@ const Login = () => {
           onChange={handleChange}
         />
         <br />
-        <button type="submit">Log In</button>
+        <Button sx={{ marginLeft: "4rem", marginTop: "2rem" }} variant="contained" onClick={() => navigate("/")}>
+           Back
+          </Button>
       </form>
+      </Grid>
+    
       <ul>{errorsList}</ul>
+      </Grid>
     </div>
   );
 };
