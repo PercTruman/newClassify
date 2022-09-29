@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import { UserContext } from "./context/UserContext";
 import Navbar from "./Navbar";
-
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
@@ -13,6 +12,8 @@ function SubjectDetail() {
   const { students, subjects } = useContext(UserContext);
   const navigate = useNavigate();
   const { id } = useParams();
+
+
   const [checkedState, setCheckedState] = useState([]);
   const [studentIds, setStudentIds] = useState([]);
   const [targetSubject, setTargetSubject] = useState([]);
@@ -77,18 +78,14 @@ function SubjectDetail() {
   };
 
   function addStudentNamesToList(array) {
-    const studentIndexes = array.map((a) => a.student_id); //returns indexes from backend
-
-    const enrolledStudentIndexes = enrolledStudents.map((es) => es.id); //grabs currently enrolled students' indexes
-
-    const totalOfStudentIndexes = studentIndexes.concat(enrolledStudentIndexes); //merges 2 previous arrays into one array
-
-    const onlyUniqueIndexes = [...new Set(totalOfStudentIndexes)]; //removes duplicate indexes
-
+    const studentIndexes = array.map((a) => a.student_id); 
+    const enrolledStudentIndexes = enrolledStudents.map((es) => es.id); 
+    const totalOfStudentIndexes = studentIndexes.concat(enrolledStudentIndexes); 
+    const onlyUniqueIndexes = [...new Set(totalOfStudentIndexes)]; 
     const studentsForDisplay = students.filter((s) =>
       onlyUniqueIndexes.includes(s.id) ? s : null
     );
-
+    
     setEnrolledStudents(studentsForDisplay);
   }
 
@@ -108,12 +105,10 @@ function SubjectDetail() {
       <div>
         <Navbar />
         <Box sx={{ flexGrow: 1 }}>
-          <h2 style={{ textAlign: "center" }}>{`${targetSubject.name} Detail`}</h2>
-          <Grid sx={{ justifyContent: "center" }} container spacing={2}>
-            <Grid>
-              <form onSubmit={submitForUpdate}>{studentCheckboxes}</form>
-            </Grid>
-          </Grid>
+          <h2
+            style={{ textAlign: "center" }}
+          >{`${targetSubject.name} Detail`}</h2>
+          <Grid sx={{ justifyContent: "center" }} container spacing={2}></Grid>
           <Grid
             sx={{ justifyContent: "center" }}
             container
@@ -121,21 +116,24 @@ function SubjectDetail() {
             marginBottom="4rem"
           >
             <Grid>
-              <Button
-                sx={{ marginLeft: "2rem", marginTop: "2rem" }}
-                variant="contained"
-                type="submit"
-              >
-                Add Students
-              </Button>
+              <form onSubmit={submitForUpdate}>
+                {studentCheckboxes}
+                <Button
+                  sx={{ marginLeft: "2rem", marginTop: "2rem" }}
+                  variant="contained"
+                  type="submit"
+                >
+                  Add Students
+                </Button>
 
-              <Button
-                variant="contained"
-                onClick={() => navigate("/subjects")}
-                sx={{ marginLeft: "2rem", marginTop: "2rem" }}
-              >
-                Back to All Subjects
-              </Button>
+                <Button
+                  variant="contained"
+                  onClick={() => navigate("/subjects")}
+                  sx={{ marginLeft: "2rem", marginTop: "2rem" }}
+                >
+                  Back to All Subjects
+                </Button>
+              </form>
             </Grid>
           </Grid>
         </Box>

@@ -20,7 +20,7 @@ import Navbar from "./Navbar";
 function Subject() {
   const theme = useTheme();
 
-  const { teachers, subjects, setSubjects } = useContext(UserContext);
+  const { teachers, subjects, setSubjects, errorsList, setErrorsList } = useContext(UserContext);
   const [formData, setFormData] = useState({
     name: "",
     room_number: "",
@@ -60,8 +60,9 @@ function Subject() {
           });
         });
       } else {
+       
         res.json().then((errors) => {
-          alert(errors.error);
+         alert(errors.error);
         });
       }
     });
@@ -170,6 +171,7 @@ function Subject() {
             >
               Add Subject{" "}
             </Button>
+            <ul>{errorsList}</ul>
           </form>
         </Grid>
       </Box>

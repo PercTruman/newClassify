@@ -20,7 +20,7 @@ class SubjectsController < ApplicationController
         if subject.save
              render json: subject, status: :ok
         else
-            render json: subject.errors, status: :unprocessable_entity
+            render json: {error: "This form is either complete, or this class name has been taken."}, status: :unprocessable_entity
         end
     end
 
@@ -50,7 +50,7 @@ class SubjectsController < ApplicationController
 
     private
     def subject_params
-        params.permit(:name, :room_number, :time, :teacher_id, :id)
+        params.permit(:name, :room_number, :time, :teacher_id)
     end
  end
         

@@ -34,8 +34,8 @@ function Student() {
           setFormData({ name: "" });
         });
       } else {
-        res.json().then(() => {
-          alert("Student Already Exists");
+        res.json().then((errors) => {
+          alert(errors.error);
           setFormData({ name: "" });
         });
       }

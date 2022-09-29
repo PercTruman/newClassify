@@ -5,16 +5,16 @@ class StudentsController < ApplicationController
         render json: students, status: :ok
     end
 
-    def create
+
         def create
             student = Student.new(student_params)
             if student.save
-              render json: student, status: :ok
+              render json: student, status: :created
             else
               render json: student.errors, status: :unprocessable_entity
             end
         end
-    end
+    
 
     private
 

@@ -35,6 +35,7 @@ function Teacher() {
       } else {
         res.json().then((errors) => {
           alert(errors.error);
+          setFormData({ name: "" });
         });
       }
     });
