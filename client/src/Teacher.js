@@ -21,7 +21,7 @@ function Teacher() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("api/teacher", {
+    fetch("/api/teachers", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
