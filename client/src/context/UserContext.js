@@ -11,22 +11,22 @@ function UserProvider({ children }) {
   const [students, setStudents] = useState([]);
 
   useEffect(() => {
-    fetch("/me")
+    fetch("api/me")
       .then((res) => res.json())
       .then((data) => {
         setUser(data);
         data.error ? setLoggedIn(false) : setLoggedIn(true);
       });
-    fetch("/teachers")
+    fetch("api/teachers")
       .then((res) => res.json())
       .then((data) => {
         setTeachers(data);
       });
-    fetch("/subjects")
+    fetch("api/subjects")
       .then((res) => res.json())
       .then((data) => setSubjects(data));
 
-    fetch("/students")
+    fetch("api/students")
       .then((res) => res.json())
       .then((data) => setStudents(data));
   }, []);

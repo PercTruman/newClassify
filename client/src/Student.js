@@ -22,7 +22,7 @@ function Student() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("/student", {
+    fetch("api/student", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
