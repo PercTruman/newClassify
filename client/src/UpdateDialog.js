@@ -30,7 +30,7 @@ export default function UpdateDialog({ id }) {
 
   const submitForUpdate = (e, id) => {
     e.preventDefault();
-    fetch(`/subjects/${id}`, {
+    fetch(`api/subjects/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -53,7 +53,7 @@ export default function UpdateDialog({ id }) {
     setDialogFormData({ ...dialogFormData, [e.target.name]: e.target.value });
   };
   const handleClassDelete = (deletedSubjectId) => {
-    fetch(`/subjects/${id}`, {
+    fetch(`api/subjects/${id}`, {
       method: "DELETE",
     }).then((res) => {
       if (res.ok) {

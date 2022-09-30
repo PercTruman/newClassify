@@ -62,7 +62,7 @@ function SubjectDetail() {
       })
       .filter((element) => element !== null);
 
-    fetch(`/student_subjects/${id}`, {
+    fetch(`api/student_subjects/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

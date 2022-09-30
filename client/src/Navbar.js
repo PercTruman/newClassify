@@ -42,7 +42,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const logoutUser = (user) => {
-    fetch("/logout", {
+    fetch("api/logout", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     }).then(() => {
