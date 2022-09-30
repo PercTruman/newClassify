@@ -17,16 +17,16 @@ function UserProvider({ children }) {
         setUser(data);
         data.error ? setLoggedIn(false) : setLoggedIn(true);
       });
-    fetch("/teacher")
+    fetch("/teachers")
       .then((res) => res.json())
       .then((data) => {
         setTeachers(data);
       });
-    fetch("/subject")
+    fetch("/subjects")
       .then((res) => res.json())
       .then((data) => setSubjects(data));
 
-    fetch("/student")
+    fetch("/students")
       .then((res) => res.json())
       .then((data) => setStudents(data));
   }, []);
