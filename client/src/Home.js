@@ -11,7 +11,7 @@ const Home = () => {
   return user ? (
     <div>
       <Navbar />
-      <h3>{user.username}'s Homepage</h3>
+      <h3>{user.username}'s  Homepage</h3>
     </div>
   ) : (
     <h3>Loading...</h3>
