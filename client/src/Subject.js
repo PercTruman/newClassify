@@ -154,7 +154,7 @@ function Subject() {
 
             <Box sx={{ maxWidth: "100%" }}>
               <FormControl fullWidth sx={{ mb: "1em" }}>
-                <InputLabel> Assign to Teacher</InputLabel>
+                <InputLabel> Assign to Professor</InputLabel>
                 <Select
                   value={formData.teacher_id}
                   name="teacher_id"

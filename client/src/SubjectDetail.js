@@ -13,7 +13,7 @@ function SubjectDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
 
-
+  
   const [checkedState, setCheckedState] = useState([]);
   const [studentIds, setStudentIds] = useState([]);
   const [targetSubject, setTargetSubject] = useState([]);
@@ -26,7 +26,7 @@ function SubjectDetail() {
   }, [students, subjects]);
 
   useEffect(() => {
-    if (targetSubject) setEnrolledStudents(targetSubject.students);
+    if (targetSubject) rebuildStudentList(targetSubject.students);
   }, [targetSubject]);
 
   const handleOnChange = (position) => {
@@ -35,6 +35,7 @@ function SubjectDetail() {
     );
     setCheckedState(updatedCheckedState);
   };
+  // rebuildStudentList(targetSubject.students)
 
   const studentCheckboxes = students.map((s, index) => (
     <div key={s.id}>
@@ -78,15 +79,18 @@ function SubjectDetail() {
   };
 
   function addStudentNamesToList(array) {
-    const studentIndexes = array.map((a) => a.student_id); 
-    const enrolledStudentIndexes = enrolledStudents.map((es) => es.id); 
-    const totalOfStudentIndexes = studentIndexes.concat(enrolledStudentIndexes); 
-    const onlyUniqueIndexes = [...new Set(totalOfStudentIndexes)]; 
+    const studentIndexes = array.map((a) => a.student_id); //returns indexes from backend
+    const enrolledStudentIndexes = enrolledStudents.map((es) => es.id); //grabs currently enrolled students' indexes
+    const totalOfStudentIndexes = studentIndexes.concat(enrolledStudentIndexes); //merges 2 previous arrays into one array
+    const onlyUniqueIndexes = [...new Set(totalOfStudentIndexes)]; //removes duplicate indexes
     const studentsForDisplay = students.filter((s) =>
       onlyUniqueIndexes.includes(s.id) ? s : null
     );
-    
-    setEnrolledStudents(studentsForDisplay);
+    rebuildStudentList(studentsForDisplay)
+   
+  }
+  function rebuildStudentList(newList){
+    setEnrolledStudents(newList)
   }
 
   if (!targetSubject || !enrolledStudents) return <h2>Loading...</h2>;
