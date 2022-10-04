@@ -22,10 +22,10 @@ function Welcome() {
         <br/>
         <Grid container sx={{ justifyContent: "center" }} spacing={2}>
         <Grid item>
-          <Button variant="contained" sx = {{m:"1rem"}}onClick={() => navigate("/login")}>
+          <Button variant="contained" sx = {{m:"1rem"}}onClick={() => navigate("/-login")}>
             Login
           </Button>
-          <Button variant="contained" onClick={() => navigate("/signup")}>
+          <Button variant="contained" onClick={() => navigate("/-signup")}>
             Signup
           </Button>
         </Grid>

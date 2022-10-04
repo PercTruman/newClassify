@@ -20,8 +20,8 @@ function App() {
       <ThemeProvider  theme={theme}>
         <Routes>
           <Route path="/" element={<Welcome />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/-login" element={<Login />} />
+          <Route path="/-signup" element={<Signup />} />
           <Route path="/home" element={<Home />} />
           <Route path="/students" element={<Student />} />
           <Route path="/subjects" element={<Subject />} />
