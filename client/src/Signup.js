@@ -2,6 +2,10 @@ import React, { useState, useContext } from "react";
 import { UserContext } from "./context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
+import Button from "@mui/material/Button";
+
+import Grid from "@mui/material/Unstable_Grid2";
+import TextField from "@mui/material/TextField";
 
 const Signup = () => {
   const theme = useTheme();
@@ -45,10 +49,13 @@ const Signup = () => {
 
   return (
     <div>
-      <h2> SignUp Component</h2>
+      <h2> SignUp for Classify</h2>
       <form onSubmit={handleSubmit}>
-        <label>Create Username:</label>
-        <input
+        <TextField
+           sx={{marginBottom: "2rem"}}
+           size = "small"
+           label = "Username"
+           name="username"
           type="text"
           autoComplete="on"
           id="username"
@@ -56,8 +63,11 @@ const Signup = () => {
           onChange={(e) => setUsername(e.target.value)}
         />
         <br />
-        <label>Email Address:</label>
-        <input
+        <TextField
+           sx={{marginBottom: "2rem"}}
+           size = "small"
+           label = "Email"
+           name="email"
           type="email"
           autoComplete="on"
           id="email"
@@ -65,8 +75,11 @@ const Signup = () => {
           onChange={(e) => setEmail(e.target.value)}
         />{" "}
         <br />
-        <label>Password:</label>
-        <input
+        <TextField
+           sx={{marginBottom: "2rem"}}
+           size = "small"
+           label = "Password"
+           name="password"
           type="password"
           autoComplete="on"
           id="password"
@@ -74,8 +87,12 @@ const Signup = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <br />
-        <label>Password Confirmation:</label>
-        <input
+      
+        <TextField
+           sx={{marginBottom: "2rem"}}
+           size = "small"
+           label = "Password Confirmation"
+           name="Password Confirmation"
           type="password"
           autoComplete="on"
           id="passwordConfirmation"
@@ -83,7 +100,7 @@ const Signup = () => {
           onChange={(e) => setPasswordConfirmation(e.target.value)}
         />
         <br />
-        <button type="submit">Add Adminstrator</button>
+        <Button type="submit">Add Adminstrator</Button>
       </form>
       <ul>{errorsList}</ul>
     </div>
