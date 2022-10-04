@@ -132,7 +132,7 @@ function SubjectDetail() {
 
                 <Button
                   variant="contained"
-                  onClick={() => navigate("/subjects")}
+                  onClick={() => navigate("/-subjects")}
                   sx={{ marginLeft: "2rem", marginTop: "2rem" }}
                 >
                   Back to All Subjects

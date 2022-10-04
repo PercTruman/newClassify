@@ -97,19 +97,19 @@ const Navbar = () => {
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
 
                 <Button
-                  onClick={() => navigate("/teachers")}
+                  onClick={() => navigate("/-teachers")}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
                   Teachers
                 </Button>
                 <Button
-                  onClick={() => navigate("/students")}
+                  onClick={() => navigate("/-students")}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
                   Students
                 </Button>
                 <Button
-                  onClick={() => navigate("/subjects")}
+                  onClick={() => navigate("/-subjects")}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
                   Subjects
