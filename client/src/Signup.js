@@ -49,6 +49,8 @@ const Signup = () => {
 
   return (
     <div>
+      <Grid sx={{ justifyContent: "center" }} container spacing={2}>
+      <Grid item>
       <h2> SignUp for Classify</h2>
       <form onSubmit={handleSubmit}>
         <TextField
@@ -102,7 +104,9 @@ const Signup = () => {
         <br />
         <Button type="submit">Add Adminstrator</Button>
       </form>
+      </Grid>
       <ul>{errorsList}</ul>
+      </Grid>
     </div>
   );
 };
