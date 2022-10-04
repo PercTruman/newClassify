@@ -25,7 +25,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/-students" element={<Student />} />
           <Route path="/-subjects" element={<Subject />} />
-          <Route path="/subjects/:id" element={<SubjectDetail />} />
+          <Route path="/-subjects/:id" element={<SubjectDetail />} />
           <Route path="/-teachers" element={<Teacher />} />
         </Routes>
       </ThemeProvider>
