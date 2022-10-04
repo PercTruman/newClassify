@@ -97,7 +97,7 @@ function Subject() {
         <Button
           sx={{ mt: 2, mb: 2 }}
           variant="contained"
-          onClick={() => navigate(`/subjects/${s.id}`)}
+          onClick={() => navigate(`/-subjects/${s.id}`)}
         >
           Add Students to {s.name}
         </Button>
