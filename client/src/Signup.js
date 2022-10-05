@@ -102,7 +102,8 @@ const Signup = () => {
           onChange={(e) => setPasswordConfirmation(e.target.value)}
         />
         <br />
-        <Button type="submit">Add Adminstrator</Button>
+        <Button variant="contained" type="submit">Add Adminstrator</Button>
+        <Button variant="contained" onClick={()=>navigate('/')}>Back</Button>
       </form>
       </Grid>
       <ul>{errorsList}</ul>

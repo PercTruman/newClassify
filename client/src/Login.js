@@ -76,7 +76,7 @@ const Login = () => {
         <Button type ="submit" sx={{ marginLeft: "4rem", marginTop: "2rem" }} variant="contained">
            Log In
           </Button>
-          <Button sx={{ marginLeft: "4rem", marginTop: "2rem" }} variant="contained" onClick={() => navigate("/signup")}>
+          <Button sx={{ marginLeft: "4rem", marginTop: "2rem" }} variant="contained" onClick={() => navigate("/-signup")}>
            Signup
           </Button>
       </form>
