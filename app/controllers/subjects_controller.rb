@@ -15,6 +15,7 @@ class SubjectsController < ApplicationController
     end
 
      def create
+       
          subject = Subject.new(subject_params)
             
         if subject.save

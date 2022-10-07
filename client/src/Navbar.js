@@ -157,15 +157,10 @@ const Navbar = () => {
     return (
       <div>
         <h1>Please Sign In</h1>
-        <h2>Navbar Component</h2>
-        <NavLink to="/login">
-          <button>Login</button>
-        </NavLink>
-        <NavLink to="/signup">
-          <button>Signup</button>
-        </NavLink>
-        <hr />
-      </div>
+     
+          <Button variant="contained" onClick={() => navigate("/-login")}>Login</Button>
+          <Button variant="contained" onClick={() => navigate("/-signup")}>Signup</Button>
+       </div>
     );
   }
 };
