@@ -6,7 +6,7 @@ class SubjectsController < ApplicationController
     end
 
     def show
-        subject = Subject.find_by(id: params[:id])
+        subject = current_user.subjects.find_by(id: params[:id])
         if subject
              render json: subject, include: :students
         else
@@ -16,7 +16,7 @@ class SubjectsController < ApplicationController
 
      def create
        
-         subject = Subject.new(subject_params)
+         subject = current_user.subjects.new(subject_params)
             
         if subject.save
              render json: subject, status: :ok
@@ -27,7 +27,7 @@ class SubjectsController < ApplicationController
 
     def update
     
-        subject = Subject.find_by(id: params[:id])
+        subject = current_user.subjects.find_by(id: params[:id])
          if subject 
             subject.update(subject_params)
              render json: subject, status: :ok

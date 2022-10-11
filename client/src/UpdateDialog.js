@@ -7,10 +7,10 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useTheme } from "@mui/material/styles";
+// import { useTheme } from "@mui/material/styles";
 
 export default function UpdateDialog({ id }) {
-  const theme = useTheme();
+  // const theme = useTheme();
 
   const { subjects, setSubjects } = useContext(UserContext);
   const [open, setOpen] = React.useState(false);
@@ -30,7 +30,7 @@ export default function UpdateDialog({ id }) {
 
   const submitForUpdate = (e, id) => {
     e.preventDefault();
-    fetch(`api/subjects/${id}`, {
+    fetch(`/subjects/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

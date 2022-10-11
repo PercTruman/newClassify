@@ -1,14 +1,14 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "./context/UserContext";
 import { useNavigate } from "react-router-dom";
-import { useTheme } from "@mui/material/styles";
+// import { useTheme } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 
 import Grid from "@mui/material/Unstable_Grid2";
 import TextField from "@mui/material/TextField";
 
 const Login = () => {
-  const theme = useTheme();
+  // const theme = useTheme();
 
   const { login, errorsList } = useContext(UserContext);
 

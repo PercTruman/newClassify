@@ -1,8 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "./context/UserContext";
 import Paper from "@mui/material/Paper";
-import { styled } from "@mui/material/styles";
+// import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -10,7 +10,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { useTheme } from "@mui/material/styles";
+// import { useTheme } from "@mui/material/styles";
 import Grid from "@mui/material/Unstable_Grid2";
 
 import UpdateDialog from "./UpdateDialog";
@@ -18,9 +18,10 @@ import Navbar from "./Navbar";
 // import AddStudentsDialog from "./AddStudentsDialog";
 
 function Subject() {
-  const theme = useTheme();
+  // const theme = useTheme();
 
-  const { user, teachers, subjects, setSubjects, errorsList, setErrorsList } = useContext(UserContext);
+  const { user, subjects, setSubjects, errorsList} = useContext(UserContext);
+  const [teachers, setTeachers] = useState([])
   const [formData, setFormData] = useState({
     name: "",
     room_number: "",
@@ -30,17 +31,29 @@ function Subject() {
   });
 
   const navigate = useNavigate();
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
+  // const Item = styled(Paper)(({ theme }) => ({
+  //   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  //   ...theme.typography.body2,
+  //   padding: theme.spacing(1),
+  //   textAlign: "center",
+  //   color: theme.palette.text.secondary,
+  // }));
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value, user_id: user.id  });
   };
+
+  useEffect(() => {
+    getUserTeachers();
+  }, []);
+
+  function getUserTeachers(){
+    fetch("/teachers")
+    .then(res => res.json())
+    .then((returnedTeachers) =>
+      setTeachers(returnedTeachers)
+    );
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();

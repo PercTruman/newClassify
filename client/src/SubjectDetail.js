@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useTheme } from "@mui/material/styles";
+// import { useTheme } from "@mui/material/styles";
 import { UserContext } from "./context/UserContext";
 import Navbar from "./Navbar";
 import Box from "@mui/material/Box";
@@ -8,7 +8,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
 
 function SubjectDetail() {
-  const theme = useTheme();
+  // const theme = useTheme();
   const { user, subjects } = useContext(UserContext);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -44,7 +44,7 @@ function SubjectDetail() {
     );
     setCheckedState(updatedCheckedState);
   };
-  // rebuildStudentList(targetSubject.students)
+  
 
   const studentCheckboxes = students.map((s, index) => (
     <div key={s.id}>

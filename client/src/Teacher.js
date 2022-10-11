@@ -1,16 +1,16 @@
 import React, { useState, useContext, useEffect} from "react";
 import { UserContext } from "./context/UserContext";
 import Navbar from "./Navbar";
-import { useTheme } from "@mui/material/styles";
+// import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
 function Teacher() {
-  const theme = useTheme();
+  // const theme = useTheme();
 
-  const { user, subjects } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [formData, setFormData] = useState({
     name: "",
   });

@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { UserContext } from "./context/UserContext";
 import Navbar from "./Navbar";
-import { useTheme } from "@mui/material/styles";
+// import { useTheme } from "@mui/material/styles";
 
 const Home = () => {
-  const theme = useTheme();
+  // const theme = useTheme();
 
   const { user } = useContext(UserContext);
 

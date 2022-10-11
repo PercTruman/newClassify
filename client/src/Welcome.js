@@ -1,12 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useTheme } from "@mui/material/styles";
+// import { useTheme } from "@mui/material/styles";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
+// import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 
 function Welcome() {
-  const theme = useTheme();
+  // const theme = useTheme();
   const navigate = useNavigate();
 
   return (

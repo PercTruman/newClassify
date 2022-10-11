@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "./context/UserContext";
-import { NavLink, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -16,7 +16,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+// const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -121,7 +121,7 @@ const Navbar = () => {
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
                       alt="Remy Sharp"
-                      src="client/src/UI/images-avatars/ospan-ali-6xv4A1VA1rU-unsplash.jpg"
+                      // src="client/src/UI/images-avatars/ospan-ali-6xv4A1VA1rU-unsplash.jpg"
                     />
                   </IconButton>
                 </Tooltip>

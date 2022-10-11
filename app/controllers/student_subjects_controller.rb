@@ -12,11 +12,10 @@ class StudentSubjectsController < ApplicationController
 
     def create
          student_subject_array = []
-         byebug
          params[:indexArray].each do |index|
-            student_subject = StudentSubject.find_or_create_by!(student_id: index, subject_id: params[:id] )
-         
-            student_subject_array << student_subject
+            student_subjects = current_user.student_subjects.find_or_create_by!(student_id: index, subject_id: params[:id], user_id: params[:user_id])
+       
+            student_subject_array << student_subjects
          end
          render json: student_subject_array, status: :created
     end
