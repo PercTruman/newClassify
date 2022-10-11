@@ -7,11 +7,11 @@ class StudentsController < ApplicationController
 
 
         def create
-            student = Student.new(student_params)
-            if student.save
-              render json: student, status: :created
+            students = Student.new(student_params)
+           if students.save
+               render json: @current_user.students, status: :created
             else
-              render json: student.errors, status: :unprocessable_entity
+              render json: students.errors, status: :unprocessable_entity
             end
         end
     
@@ -19,6 +19,6 @@ class StudentsController < ApplicationController
     private
 
     def student_params
-        params.permit(:name)
+        params.permit(:name, :user_id)
     end
 end

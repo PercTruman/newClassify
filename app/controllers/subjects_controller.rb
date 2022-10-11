@@ -51,7 +51,7 @@ class SubjectsController < ApplicationController
 
     private
     def subject_params
-        params.permit(:name, :room_number, :time, :teacher_id)
+        params.permit(:name, :room_number, :time, :teacher_id, :user_id)
     end
  end
         

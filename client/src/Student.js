@@ -9,15 +9,18 @@ import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 
 function Student() {
+  const { students, setStudents, user } = useContext(UserContext);
   const theme = useTheme();
   const [formData, setFormData] = useState({
     name: "",
-  });
-  const { students, setStudents } = useContext(UserContext);
+    user_id: "",
+  })
+
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value, user_id: user.id });
   };
 
   const handleSubmit = (e) => {
@@ -43,8 +46,7 @@ function Student() {
   };
 
   const studentsList = students.map((s) => (
-    <Grid
-      item
+    <Grid 
       key={s.id}
       sx={{ padding: "10px", margin: "auto", textAlign: "center" }}
     >

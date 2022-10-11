@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
+import { useParams } from "react-router-dom";
 
 const UserContext = createContext();
 
@@ -9,6 +10,7 @@ function UserProvider({ children }) {
   const [teachers, setTeachers] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const [students, setStudents] = useState([]);
+  
 
   useEffect(() => {
     fetch("/me")
@@ -17,16 +19,16 @@ function UserProvider({ children }) {
         setUser(data);
         data.error ? setLoggedIn(false) : setLoggedIn(true);
       });
-    fetch("/teachers")
+    fetch('/teachers')
       .then((res) => res.json())
       .then((data) => {
         setTeachers(data);
       });
-    fetch("/subjects")
+    fetch('/subjects')
       .then((res) => res.json())
       .then((data) => setSubjects(data));
 
-    fetch("/students")
+    fetch('/students')
       .then((res) => res.json())
       .then((data) => setStudents(data));
   }, []);

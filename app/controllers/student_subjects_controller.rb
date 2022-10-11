@@ -23,7 +23,7 @@ class StudentSubjectsController < ApplicationController
     private
 
      def student_subject_params
-        params.permit(:subject_id, :student_id)
+        params.permit(:subject_id, :student_id, :user_id)
      end
 
      def render_unprocessable_entity_response(invalid)
