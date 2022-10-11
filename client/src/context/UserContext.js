@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
-import { useParams } from "react-router-dom";
+
 
 const UserContext = createContext();
 
@@ -19,18 +19,18 @@ function UserProvider({ children }) {
         setUser(data);
         data.error ? setLoggedIn(false) : setLoggedIn(true);
       });
-    fetch('/teachers')
-      .then((res) => res.json())
-      .then((data) => {
-        setTeachers(data);
-      });
+    // fetch('/teachers')
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     setTeachers(data);
+    //   });
     fetch('/subjects')
       .then((res) => res.json())
       .then((data) => setSubjects(data));
 
-    fetch('/students')
-      .then((res) => res.json())
-      .then((data) => setStudents(data));
+    // fetch('/students')
+    //   .then((res) => res.json())
+    //   .then((data) => setStudents(data));
   }, []);
 
   const login = (user) => {

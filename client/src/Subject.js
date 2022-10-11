@@ -20,12 +20,13 @@ import Navbar from "./Navbar";
 function Subject() {
   const theme = useTheme();
 
-  const { teachers, subjects, setSubjects, errorsList, setErrorsList } = useContext(UserContext);
+  const { user, teachers, subjects, setSubjects, errorsList, setErrorsList } = useContext(UserContext);
   const [formData, setFormData] = useState({
     name: "",
     room_number: "",
     time: "",
     teacher_id: "",
+    user_id: ""
   });
 
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ function Subject() {
   }));
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value, user_id: user.id  });
   };
 
   const handleSubmit = (e) => {
@@ -57,6 +58,7 @@ function Subject() {
             room_number: "",
             time: "",
             teacher_id: "",
+            user_id:""
           });
         });
       } else {

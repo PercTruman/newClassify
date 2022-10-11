@@ -1,6 +1,6 @@
 class StudentsController < ApplicationController
     def index
-        students = Student.all
+        students = current_user.students
 
         render json: students, status: :ok
     end
@@ -9,7 +9,7 @@ class StudentsController < ApplicationController
         def create
             students = Student.new(student_params)
            if students.save
-               render json: @current_user.students, status: :created
+               render json: current_user.students, status: :created
             else
               render json: students.errors, status: :unprocessable_entity
             end

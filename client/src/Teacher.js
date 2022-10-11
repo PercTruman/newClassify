@@ -10,15 +10,15 @@ import TextField from "@mui/material/TextField";
 function Teacher() {
   const theme = useTheme();
 
-  const { user, teachers, setTeachers } = useContext(UserContext);
+  const { user, teachers, setTeachers, subjects } = useContext(UserContext);
   const [formData, setFormData] = useState({
     name: "",
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value, user_id: user.id });
   };
-
+console.log(subjects)
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch("/teachers", {
@@ -28,14 +28,15 @@ function Teacher() {
     }).then((res) => {
       if (res.ok) {
         res.json().then((newTeacher) => {
+         
           const updatedTeacherList = [...teachers, newTeacher];
           setTeachers(updatedTeacherList);
-          setFormData({ name: "" });
+          setFormData({ name: "", user_id: "" });
         });
       } else {
         res.json().then((errors) => {
           alert(errors.error);
-          setFormData({ name: "" });
+          setFormData({ name: "", user_id:"" });
         });
       }
     });

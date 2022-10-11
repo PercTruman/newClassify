@@ -53,7 +53,7 @@ export default function UpdateDialog({ id }) {
     setDialogFormData({ ...dialogFormData, [e.target.name]: e.target.value });
   };
   const handleClassDelete = (deletedSubjectId) => {
-    fetch(`api/subjects/${id}`, {
+    fetch(`/subjects/${id}`, {
       method: "DELETE",
     }).then((res) => {
       if (res.ok) {
