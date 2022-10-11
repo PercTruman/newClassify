@@ -6,15 +6,16 @@ class StudentSubjectsController < ApplicationController
 
 
     def index
-        student_subjects = StudentSubject.all
+        student_subjects = current_user.student_subjects
         render json: student_subjects
     end
 
     def create
          student_subject_array = []
+         byebug
          params[:indexArray].each do |index|
-            student_subject = StudentSubject.find_or_create_by!(student_id: index, subject_id: params[:id])
-          
+            student_subject = StudentSubject.find_or_create_by!(student_id: index, subject_id: params[:id] )
+         
             student_subject_array << student_subject
          end
          render json: student_subject_array, status: :created

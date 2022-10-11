@@ -1,12 +1,12 @@
 class TeachersController < ApplicationController
 
     def index
-        teachers = Teacher.all
+        teachers = current_user.teachers
         render json: teachers, status: :ok
     end
 
     def create
-        teacher = Teacher.new(teacher_params)
+        teacher = current_user.teachers.new(teacher_params)
     
         if teacher.save
           render json: teacher, status: :created

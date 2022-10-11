@@ -9,11 +9,11 @@ import Button from "@mui/material/Button";
 
 function SubjectDetail() {
   const theme = useTheme();
-  const { students, subjects } = useContext(UserContext);
+  const { user, subjects } = useContext(UserContext);
   const navigate = useNavigate();
   const { id } = useParams();
 
-  
+  const [students, setStudents]= useState([])
   const [checkedState, setCheckedState] = useState([]);
   const [studentIds, setStudentIds] = useState([]);
   const [targetSubject, setTargetSubject] = useState([]);
@@ -23,11 +23,20 @@ function SubjectDetail() {
     setCheckedState(new Array(students.length).fill(false));
     setStudentIds(students.map((student) => student.id));
     setTargetSubject(subjects.find((subject) => subject.id === parseInt(id)));
-  }, [students, subjects]);
+    getUserStudents()
+  }, [ subjects]);
 
   useEffect(() => {
     if (targetSubject) rebuildStudentList(targetSubject.students);
   }, [targetSubject]);
+
+  function getUserStudents() {
+    fetch("/students")
+    .then(res => res.json())
+    .then((returnedStudents) =>
+      setStudents(returnedStudents)
+    );
+  }
 
   const handleOnChange = (position) => {
     const updatedCheckedState = checkedState.map((item, index) =>
@@ -69,7 +78,7 @@ function SubjectDetail() {
         Accept: "application/json",
       },
       body: JSON.stringify({
-        indexArray,
+        indexArray, user_id:user.id
       }),
     })
       .then((res) => res.json())

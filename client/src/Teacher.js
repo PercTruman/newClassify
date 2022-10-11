@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect} from "react";
 import { UserContext } from "./context/UserContext";
 import Navbar from "./Navbar";
 import { useTheme } from "@mui/material/styles";
@@ -10,15 +10,27 @@ import TextField from "@mui/material/TextField";
 function Teacher() {
   const theme = useTheme();
 
-  const { user, teachers, setTeachers, subjects } = useContext(UserContext);
+  const { user, subjects } = useContext(UserContext);
   const [formData, setFormData] = useState({
     name: "",
   });
-
+const [teachers, setTeachers] = useState([])
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value, user_id: user.id });
   };
-console.log(subjects)
+
+  useEffect(() => {
+    getUserTeachers();
+  }, []);
+
+  function getUserTeachers(){
+    fetch("/teachers")
+    .then(res => res.json())
+    .then((returnedTeachers) =>
+      setTeachers(returnedTeachers)
+    );
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch("/teachers", {
@@ -28,9 +40,9 @@ console.log(subjects)
     }).then((res) => {
       if (res.ok) {
         res.json().then((newTeacher) => {
+         console.log(newTeacher)
          
-          const updatedTeacherList = [...teachers, newTeacher];
-          setTeachers(updatedTeacherList);
+          setTeachers([...teachers, newTeacher]);
           setFormData({ name: "", user_id: "" });
         });
       } else {
