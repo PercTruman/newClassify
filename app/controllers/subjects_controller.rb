@@ -1,8 +1,8 @@
 class SubjectsController < ApplicationController
 
     def index
-        subjects = current_user.subjects
-        render json: subjects,  status: :ok
+        subject = current_user.subjects
+        render json: subject,  status: :ok
     end
 
     def show

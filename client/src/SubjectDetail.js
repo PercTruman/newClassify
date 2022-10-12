@@ -9,10 +9,10 @@ import Button from "@mui/material/Button";
 
 function SubjectDetail() {
   // const theme = useTheme();
-  const { user, subjects } = useContext(UserContext);
+  const { user} = useContext(UserContext);
   const navigate = useNavigate();
   const { id } = useParams();
-
+  const [subjects, setSubjects] = useState([])
   const [students, setStudents]= useState([])
   const [checkedState, setCheckedState] = useState([]);
   const [studentIds, setStudentIds] = useState([]);
@@ -23,12 +23,19 @@ function SubjectDetail() {
     setCheckedState(new Array(students.length).fill(false));
     setStudentIds(students.map((student) => student.id));
     setTargetSubject(subjects.find((subject) => subject.id === parseInt(id)));
-    getUserStudents()
-  }, [ subjects]);
+    getUserStudents();
+    getUserSubjects()
+  }, []);
 
   useEffect(() => {
     if (targetSubject) rebuildStudentList(targetSubject.students);
   }, [targetSubject]);
+
+  function getUserSubjects(){
+    fetch('/subjects')
+    .then((res) => res.json())
+    .then((data) => setSubjects(data));
+  }
 
   function getUserStudents() {
     fetch("/students")

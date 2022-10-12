@@ -15,13 +15,13 @@ import Grid from "@mui/material/Unstable_Grid2";
 
 import UpdateDialog from "./UpdateDialog";
 import Navbar from "./Navbar";
-// import AddStudentsDialog from "./AddStudentsDialog";
 
 function Subject() {
   // const theme = useTheme();
 
-  const { user, subjects, setSubjects, errorsList} = useContext(UserContext);
+  const { user, errorsList} = useContext(UserContext);
   const [teachers, setTeachers] = useState([])
+  const [subjects, setSubjects] = useState([])
   const [formData, setFormData] = useState({
     name: "",
     room_number: "",
@@ -29,24 +29,24 @@ function Subject() {
     teacher_id: "",
     user_id: ""
   });
+ 
 
   const navigate = useNavigate();
-  // const Item = styled(Paper)(({ theme }) => ({
-  //   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  //   ...theme.typography.body2,
-  //   padding: theme.spacing(1),
-  //   textAlign: "center",
-  //   color: theme.palette.text.secondary,
-  // }));
-
+  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value, user_id: user.id  });
   };
 
   useEffect(() => {
     getUserTeachers();
+    getUserSubjects();
   }, []);
 
+function getUserSubjects(){
+  fetch('/subjects')
+  .then((res) => res.json())
+  .then((data) => setSubjects(data));
+}
   function getUserTeachers(){
     fetch("/teachers")
     .then(res => res.json())
@@ -89,7 +89,7 @@ function Subject() {
     </MenuItem>
   ));
 
-  const subjectsList = subjects.map((s) => (
+  const subjectsList = user && subjects && subjects.map((s) => (
     <Grid
       item
       key={s.id}
@@ -108,7 +108,7 @@ function Subject() {
         <h3>Room: {s.room_number}</h3>
         <h3>Time: {s.time}</h3>
 
-        <UpdateDialog key={s.id} id={s.id} />
+        <UpdateDialog key={s.id} id={s.id} subjects = {subjects} setSubjects={setSubjects}/>
         <Button
           sx={{ mt: 2, mb: 2 }}
           variant="contained"
@@ -184,7 +184,7 @@ function Subject() {
               variant="contained"
               type="submit"
             >
-              Add Subject{" "}
+              Add Class{" "}
             </Button>
             <ul>{errorsList}</ul>
           </form>

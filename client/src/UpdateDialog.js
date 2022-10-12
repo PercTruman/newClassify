@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import { UserContext } from "./context/UserContext";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -9,16 +8,17 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 // import { useTheme } from "@mui/material/styles";
 
-export default function UpdateDialog({ id }) {
+export default function UpdateDialog({ id, subjects, setSubjects }) {
   // const theme = useTheme();
 
-  const { subjects, setSubjects } = useContext(UserContext);
+ 
   const [open, setOpen] = React.useState(false);
   const [dialogFormData, setDialogFormData] = useState({
     name: "",
     room_number: "",
     time: "",
   });
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -58,7 +58,7 @@ export default function UpdateDialog({ id }) {
     }).then((res) => {
       if (res.ok) {
         setSubjects(
-          subjects.filter((s) => (s.id !== deletedSubjectId ? s : null))
+          subjects.filter((s) => (s.id !== deletedSubjectId ))
         );
       } else {
         res.json().then((errors) => {

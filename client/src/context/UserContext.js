@@ -4,12 +4,12 @@ import React, { useState, useEffect, createContext } from "react";
 const UserContext = createContext();
 
 function UserProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [errorsList, setErrorsList] = useState([]);
-  const [teachers, setTeachers] = useState([]);
-  const [subjects, setSubjects] = useState([]);
-  const [students, setStudents] = useState([]);
+  // const [teachers, setTeachers] = useState([]);
+  // const [subjects, setSubjects] = useState([]);
+  // const [students, setStudents] = useState([]);
   
 
   useEffect(() => {
@@ -19,26 +19,15 @@ function UserProvider({ children }) {
         setUser(data);
         data.error ? setLoggedIn(false) : setLoggedIn(true);
       });
-    // fetch('/teachers')
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     setTeachers(data);
-    //   });
-    fetch('/subjects')
-      .then((res) => res.json())
-      .then((data) => setSubjects(data));
-
-    // fetch('/students')
-    //   .then((res) => res.json())
-    //   .then((data) => setStudents(data));
   }, []);
+
 
   const login = (user) => {
     setUser(user);
     setLoggedIn(true);
   };
 
-  const logout = (user) => {
+  const logout = () => {
     setUser({});
     setLoggedIn(false);
   };
@@ -55,12 +44,6 @@ function UserProvider({ children }) {
         login,
         logout,
         signup,
-        subjects,
-        setSubjects,
-        teachers,
-        setTeachers,
-        students, 
-        setStudents,
         loggedIn,
         errorsList,
         setErrorsList,

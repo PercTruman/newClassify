@@ -41,7 +41,7 @@ const Navbar = () => {
   const { user, logout, loggedIn } = useContext(UserContext);
   const navigate = useNavigate();
 
-  const logoutUser = (user) => {
+  const logoutUser = () => {
     fetch("/logout", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },

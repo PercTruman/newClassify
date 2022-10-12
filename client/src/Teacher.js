@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect} from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "./context/UserContext";
 import Navbar from "./Navbar";
 // import { useTheme } from "@mui/material/styles";
@@ -14,21 +14,23 @@ function Teacher() {
   const [formData, setFormData] = useState({
     name: "",
   });
-const [teachers, setTeachers] = useState([])
+  const [teachers, setTeachers] = useState([]);
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value, user_id: user.id });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+      user_id: user.id,
+    });
   };
 
   useEffect(() => {
     getUserTeachers();
   }, []);
 
-  function getUserTeachers(){
+  function getUserTeachers() {
     fetch("/teachers")
-    .then(res => res.json())
-    .then((returnedTeachers) =>
-      setTeachers(returnedTeachers)
-    );
+      .then((res) => res.json())
+      .then((returnedTeachers) => setTeachers(returnedTeachers));
   }
 
   const handleSubmit = (e) => {
@@ -40,15 +42,13 @@ const [teachers, setTeachers] = useState([])
     }).then((res) => {
       if (res.ok) {
         res.json().then((newTeacher) => {
-         console.log(newTeacher)
-         
           setTeachers([...teachers, newTeacher]);
           setFormData({ name: "", user_id: "" });
         });
       } else {
         res.json().then((errors) => {
           alert(errors.error);
-          setFormData({ name: "", user_id:"" });
+          setFormData({ name: "", user_id: "" });
         });
       }
     });
@@ -72,7 +72,7 @@ const [teachers, setTeachers] = useState([])
       <Box sx={{ flexGrow: 1 }}>
         <Grid sx={{ justifyContent: "center" }} container spacing={2}>
           <form onSubmit={handleSubmit}>
-            <h2 style = {{marginLeft:"8rem"}}>Add Teacher</h2>
+            <h2 style={{ marginLeft: "8rem" }}>Add Teacher</h2>
 
             <TextField
               label="Name"
