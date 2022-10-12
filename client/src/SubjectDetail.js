@@ -9,11 +9,11 @@ import Button from "@mui/material/Button";
 
 function SubjectDetail() {
   // const theme = useTheme();
-  const { user} = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const { id } = useParams();
-  const [subjects, setSubjects] = useState([])
-  const [students, setStudents]= useState([])
+  const [subjects, setSubjects] = useState([]);
+  const [students, setStudents] = useState([]);
   const [checkedState, setCheckedState] = useState([]);
   const [studentIds, setStudentIds] = useState([]);
   const [targetSubject, setTargetSubject] = useState([]);
@@ -22,27 +22,24 @@ function SubjectDetail() {
   useEffect(() => {
     setCheckedState(new Array(students.length).fill(false));
     setStudentIds(students.map((student) => student.id));
-    setTargetSubject(subjects.find((subject) => subject.id === parseInt(id)));
     getUserStudents();
-    getUserSubjects()
+    // setTargetSubject(subjects && subjects.find((subject) => subject.id === parseInt(id)));
   }, []);
 
   useEffect(() => {
     if (targetSubject) rebuildStudentList(targetSubject.students);
   }, [targetSubject]);
 
-  function getUserSubjects(){
-    fetch('/subjects')
-    .then((res) => res.json())
-    .then((data) => setSubjects(data));
-  }
+  useEffect(() => {
+    fetch(`/subjects/${id}`)
+      .then((res) => res.json())
+      .then((data) => setTargetSubject(data));
+  }, []);
 
   function getUserStudents() {
     fetch("/students")
-    .then(res => res.json())
-    .then((returnedStudents) =>
-      setStudents(returnedStudents)
-    );
+      .then((res) => res.json())
+      .then((returnedStudents) => setStudents(returnedStudents));
   }
 
   const handleOnChange = (position) => {
@@ -51,7 +48,6 @@ function SubjectDetail() {
     );
     setCheckedState(updatedCheckedState);
   };
-  
 
   const studentCheckboxes = students.map((s, index) => (
     <div key={s.id}>
@@ -85,7 +81,8 @@ function SubjectDetail() {
         Accept: "application/json",
       },
       body: JSON.stringify({
-        indexArray, user_id:user.id
+        indexArray,
+        user_id: user.id,
       }),
     })
       .then((res) => res.json())
@@ -102,23 +99,24 @@ function SubjectDetail() {
     const studentsForDisplay = students.filter((s) =>
       onlyUniqueIndexes.includes(s.id) ? s : null
     );
-    rebuildStudentList(studentsForDisplay)
-   
+    rebuildStudentList(studentsForDisplay);
   }
-  function rebuildStudentList(newList){
-    setEnrolledStudents(newList)
+  function rebuildStudentList(newList) {
+    setEnrolledStudents(newList);
   }
 
-  if (!targetSubject || !enrolledStudents) return <h2>Loading...</h2>;
+  // if (!targetSubject || !enrolledStudents) return <h2>Loading...</h2>;
 
-  const displayedStudents = enrolledStudents.map((student) => (
-    <Grid
-      key={student.id}
-      sx={{ padding: "10px", margin: "auto", textAlign: "center" }}
-    >
-      {student.name}
-    </Grid>
-  ));
+  const displayedStudents =
+    enrolledStudents &&
+    enrolledStudents.map((student) => (
+      <Grid
+        key={student.id}
+        sx={{ padding: "10px", margin: "auto", textAlign: "center" }}
+      >
+        {student.name}
+      </Grid>
+    ));
 
   if (subjects) {
     return (

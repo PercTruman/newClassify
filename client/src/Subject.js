@@ -114,7 +114,7 @@ function getUserSubjects(){
           variant="contained"
           onClick={() => navigate(`/-subjects/${s.id}`)}
         >
-          Add Students to {s.name}
+          Add Students 
         </Button>
       </Paper>
     </Grid>
