@@ -11,6 +11,7 @@ class StudentSubjectsController < ApplicationController
     end
 
     def create
+  
          student_subject_array = []
          params[:indexArray].each do |index|
             student_subjects = current_user.student_subjects.find_or_create_by!(student_id: index, subject_id: params[:id], user_id: params[:user_id])

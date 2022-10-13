@@ -1,6 +1,7 @@
 class TeachersController < ApplicationController
 
     def index
+    
         teachers = current_user.teachers
         render json: teachers, status: :ok
     end

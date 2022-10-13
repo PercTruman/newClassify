@@ -7,10 +7,6 @@ function UserProvider({ children }) {
   const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [errorsList, setErrorsList] = useState([]);
-  // const [teachers, setTeachers] = useState([]);
-  // const [subjects, setSubjects] = useState([]);
-  // const [students, setStudents] = useState([]);
-  
 
   useEffect(() => {
     fetch("/me")
@@ -20,7 +16,6 @@ function UserProvider({ children }) {
         data.error ? setLoggedIn(false) : setLoggedIn(true);
       });
   }, []);
-
 
   const login = (user) => {
     setUser(user);

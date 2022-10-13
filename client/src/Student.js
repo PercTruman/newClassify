@@ -5,28 +5,16 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-// import { useTheme } from "@mui/material/styles";
+
 
 function Student() {
   const {  user } = useContext(UserContext);
-  const [ students, setStudents ] = useState([]);
-  // const theme = useTheme();
+  const [ students, setStudents ] = useState([user.students]);
   const [formData, setFormData] = useState({
     name: "",
     user_id: "",
   });
 
-  useEffect(() => {
-    getUserStudents();
-  }, []);
-
-  function getUserStudents() {
-    fetch("/students")
-    .then(res => res.json())
-    .then((returnedStudents) =>
-      setStudents(returnedStudents)
-    );
-  }
 
   const handleChange = (e) => {
     setFormData({
@@ -57,7 +45,7 @@ function Student() {
     });
   };
 
-  const studentsList = students && students.map((s) => (
+  const studentsList = user.students && user.students.map((s) => (
     <Grid
       key={s.id}
       sx={{ padding: "10px", margin: "auto", textAlign: "center" }}

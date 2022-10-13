@@ -20,15 +20,11 @@ function SubjectDetail() {
   const [enrolledStudents, setEnrolledStudents] = useState([]);
 
   useEffect(() => {
-    setCheckedState(new Array(students.length).fill(false));
-    setStudentIds(students.map((student) => student.id));
+    setStudentIds(user.students.map((student) => student.id));
     getUserStudents();
-    // setTargetSubject(subjects && subjects.find((subject) => subject.id === parseInt(id)));
+    rebuildStudentList(user.students);
+    setCheckedState(new Array(user.students.length).fill(false));
   }, []);
-
-  useEffect(() => {
-    if (targetSubject) rebuildStudentList(targetSubject.students);
-  }, [targetSubject]);
 
   useEffect(() => {
     fetch(`/subjects/${id}`)
@@ -101,11 +97,9 @@ function SubjectDetail() {
     );
     rebuildStudentList(studentsForDisplay);
   }
-  function rebuildStudentList(newList) {
-    setEnrolledStudents(newList);
+  function rebuildStudentList(studentsForDisplay) {
+    setEnrolledStudents(studentsForDisplay);
   }
-
-  // if (!targetSubject || !enrolledStudents) return <h2>Loading...</h2>;
 
   const displayedStudents =
     enrolledStudents &&
