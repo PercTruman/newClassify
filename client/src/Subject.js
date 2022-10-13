@@ -74,14 +74,16 @@ function Subject() {
   return (
     <div>
       <Navbar />
+      <Box sx={{ textAlign: "center" }}>
       <Button
-            sx={{ mt: 2, mb: 2 }}
+            sx={{  mt: 6, mb: 2 }}
             variant="contained"
             onClick={() => setShowClassForm((!showClassForm))}
-          >Create Class</Button>
+          >Create New Class</Button>
+        </Box>  
       {showClassForm ? <CreateClassForm /> : null}
       <Box sx={{ textAlign: "center" }}>
-        <h2>Existing Classes</h2>
+        <h2>Classes</h2>
       </Box>
       <Grid container justifyContent={"center"}>
         {subjectsList}
