@@ -1,17 +1,13 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "./context/UserContext";
 import { useNavigate } from "react-router-dom";
-// import { useTheme } from "@mui/material/styles";
 import Button from "@mui/material/Button";
-
 import Grid from "@mui/material/Unstable_Grid2";
 import TextField from "@mui/material/TextField";
 
 const Login = () => {
-  // const theme = useTheme();
-
+  const navigate = useNavigate();
   const { login, errorsList } = useContext(UserContext);
-
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -20,8 +16,6 @@ const Login = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
