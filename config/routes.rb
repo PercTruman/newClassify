@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
-  get '/students', to: 'students#index'
+  # get '/students', to: 'students#index'
   get '/users', to: 'users#index'
-  get '/teachers', to: 'teachers#index'
-  get '/subjects', to: 'subjects#index'
+  # get '/teachers', to: 'teachers#index'
+  # get '/subjects', to: 'subjects#index'
   get '/subjects/:id', to: 'subjects#show'
   get '/me', to: 'users#show'
-  get '/student_subjects', to: 'student_subjects#index'
+  # get '/student_subjects', to: 'student_subjects#index'
 
   post '/subjects', to: 'subjects#create'
   post '/student_subjects/:id', to: 'student_subjects#create'

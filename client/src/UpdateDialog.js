@@ -70,8 +70,8 @@ export default function UpdateDialog({ id, subjects, setSubjects }) {
 
   return (
     <div>
-      <Button variant="contained" onClick={handleClickOpen}>
-        Edit Class Details
+      <Button sx={{mb: "1rem"}}variant="contained" onClick={handleClickOpen}>
+        Details
       </Button>
 
       <Dialog open={open} onClose={handleClose}>

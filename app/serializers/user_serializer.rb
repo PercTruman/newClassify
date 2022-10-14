@@ -3,6 +3,5 @@ class UserSerializer < ActiveModel::Serializer
   has_many :students
   has_many :teachers
   has_many :student_subjects
-  has_many :students
   has_many :subjects
 end

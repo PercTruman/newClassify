@@ -8,9 +8,9 @@ class SubjectsController < ApplicationController
     def show
         subject = current_user.subjects.find_by(id: params[:id])
         if subject
-             render json: subject, include: :students
+             render json: subject
         else
-            render json: subject.errors, status: :not_found
+            render json: {error: "Subject Not Found"}, status: :not_found
         end
     end
 

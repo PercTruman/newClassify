@@ -45,7 +45,7 @@ function SubjectDetail() {
     setCheckedState(updatedCheckedState);
   };
 
-  const studentCheckboxes = students.map((s, index) => (
+  const studentCheckboxes = user.students.map((s, index) => (
     <div key={s.id}>
       <input
         type="checkbox"
