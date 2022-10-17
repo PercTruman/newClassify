@@ -1,7 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext} from "react";
 import { UserContext } from "./context/UserContext";
 import Navbar from "./Navbar";
-// import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
@@ -14,7 +13,7 @@ function Teacher() {
   const [formData, setFormData] = useState({
     name: "",
   });
-  const [teachers, setTeachers] = useState([]);
+  const [teachers, setTeachers] = useState([user.teachers]);
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -22,16 +21,17 @@ function Teacher() {
       user_id: user.id,
     });
   };
+  console.log(user)
 
-  useEffect(() => {
-    getUserTeachers();
-  }, []);
+  // useEffect(() => {
+  //   getUserTeachers();
+  // }, []);
 
-  function getUserTeachers() {
-    fetch("/teachers")
-      .then((res) => res.json())
-      .then((returnedTeachers) => setTeachers(returnedTeachers));
-  }
+  // function getUserTeachers() {
+  //   fetch("/teachers")
+  //     .then((res) => res.json())
+  //     .then((returnedTeachers) => setTeachers(returnedTeachers));
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,7 +42,7 @@ function Teacher() {
     }).then((res) => {
       if (res.ok) {
         res.json().then((newTeacher) => {
-          setTeachers([...teachers, newTeacher]);
+          setTeachers([...user.teachers, newTeacher]);
           setFormData({ name: "", user_id: "" });
         });
       } else {
@@ -53,7 +53,7 @@ function Teacher() {
       }
     });
   };
-  const teachersList = teachers.map((t) => (
+  const teachersList = user.teachers.map((t) => (
     <Grid
       item
       key={t.id}

@@ -1,5 +1,5 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState, useContext} from "react";
+import { useNavigate} from "react-router-dom";
 import { UserContext } from "./context/UserContext";
 import Paper from "@mui/material/Paper";
 import CreateClassForm from "./CreateClassForm";
@@ -10,12 +10,12 @@ import UpdateDialog from "./UpdateDialog";
 import Navbar from "./Navbar";
 
 function Subject() {
-  const { user } = useContext(UserContext);
-  const [teachers, setTeachers] = useState([]);
-  const [subjects, setSubjects] = useState([]);
+  const { user, loggedIn } = useContext(UserContext);
+  // const [teachers, setTeachers] = useState([]);
+  // const [subjects, setSubjects] = useState([]);
   const navigate = useNavigate();
   const [showClassForm, setShowClassForm] = useState(false);
-  const { id } = useParams();
+  // const { id } = useParams();
 
   // useEffect(() => {
   //   getUserTeachers();
@@ -32,9 +32,8 @@ function Subject() {
   //     .then((res) => res.json())
   //     .then((returnedTeachers) => setTeachers(returnedTeachers));
   // }
-  console.log(user);
-  const subjectsList = user
-    ? user.subjects.map((s) => (
+  if (!loggedIn) return null;
+  const subjectsList =  user.subjects.map((s) => (
         <Grid
           item
           key={s.id}
@@ -55,7 +54,7 @@ function Subject() {
             <Button
               sx={{ mb: "1rem" }}
               variant="contained"
-              onClick={() => navigate(`/-subjects/${id}`)}
+              onClick={() => navigate(`/-subjects/${s.id}`)}
             >
               Details
             </Button>
@@ -75,7 +74,7 @@ function Subject() {
           </Paper>
         </Grid>
       ))
-    : null;
+   
 
   return (
     <div>

@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-// import { useTheme } from "@mui/material/styles";
 import { UserContext } from "./context/UserContext";
 import Navbar from "./Navbar";
 import Box from "@mui/material/Box";
@@ -8,12 +7,11 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
 
 function SubjectDetail() {
-  // const theme = useTheme();
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const { id } = useParams();
-  const [subjects, setSubjects] = useState([]);
-  const [students, setStudents] = useState([]);
+  // const [subjects, setSubjects] = useState([]);
+  // const [students, setStudents] = useState([]);
   const [checkedState, setCheckedState] = useState([]);
   const [studentIds, setStudentIds] = useState([]);
   const [targetSubject, setTargetSubject] = useState([]);
@@ -21,23 +19,23 @@ function SubjectDetail() {
 
   useEffect(() => {
     setStudentIds(user.students.map((student) => student.id));
-    getUserStudents();
-    rebuildStudentList(user.students);
+    // getUserStudents();
+    // rebuildStudentList(user.students);
     setCheckedState(new Array(user.students.length).fill(false));
   }, []);
 
-  useEffect(() => {
-    fetch(`/subjects/${id}`)
-      .then((res) => res.json())
-      .then((data) => setTargetSubject(data));
-  }, []);
+  // useEffect(() => {
+  //   fetch(`/subjects/${id}`)
+  //     .then((res) => res.json())
+  //     .then((data) => setTargetSubject(data));
+  // }, []);
 
-  function getUserStudents() {
-    fetch("/students")
-      .then((res) => res.json())
-      .then((returnedStudents) => setStudents(returnedStudents));
-  }
-
+  // function getUserStudents() {
+  //   fetch("/students")
+  //     .then((res) => res.json())
+  //     .then((returnedStudents) => setStudents(returnedStudents));
+  // }
+  if (!user) return null; 
   const handleOnChange = (position) => {
     const updatedCheckedState = checkedState.map((item, index) =>
       index === position ? !item : item
@@ -92,7 +90,7 @@ function SubjectDetail() {
     const enrolledStudentIndexes = enrolledStudents.map((es) => es.id); //grabs currently enrolled students' indexes
     const totalOfStudentIndexes = studentIndexes.concat(enrolledStudentIndexes); //merges 2 previous arrays into one array
     const onlyUniqueIndexes = [...new Set(totalOfStudentIndexes)]; //removes duplicate indexes
-    const studentsForDisplay = students.filter((s) =>
+    const studentsForDisplay = user.students.filter((s) =>
       onlyUniqueIndexes.includes(s.id) ? s : null
     );
     rebuildStudentList(studentsForDisplay);
@@ -112,14 +110,14 @@ function SubjectDetail() {
       </Grid>
     ));
 
-  if (subjects) {
+  if (user.subjects) {
     return (
       <div>
         <Navbar />
         <Box sx={{ flexGrow: 1 }}>
           <h2
             style={{ textAlign: "center" }}
-          >{`${targetSubject.name} Detail`}</h2>
+          >Class Detail</h2>
           <Grid sx={{ justifyContent: "center" }} container spacing={2}></Grid>
           <Grid
             sx={{ justifyContent: "center" }}
