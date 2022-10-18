@@ -16,16 +16,10 @@ import Teacher from "./Teacher";
 
 
 function App() {
-  const { user, setUser, setLoggedIn } = useContext(UserContext);
+  const {setUser, setLoggedIn } = useContext(UserContext);
 
-  useEffect(() => {
-    fetch("/me")
-      .then((res) => res.json())
-      .then((data) => {
-        setUser(data);
-        data.error ? setLoggedIn(false) : setLoggedIn(true);
-      });
-  }, [user]);
+  
+  
   return (
     <div className="App" >
       <ThemeProvider  theme={theme}>

@@ -6,32 +6,13 @@ import CreateClassForm from "./CreateClassForm";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
-import UpdateDialog from "./UpdateDialog";
 import Navbar from "./Navbar";
 
 function Subject() {
   const { user, loggedIn } = useContext(UserContext);
-  // const [teachers, setTeachers] = useState([]);
-  // const [subjects, setSubjects] = useState([]);
   const navigate = useNavigate();
   const [showClassForm, setShowClassForm] = useState(false);
-  // const { id } = useParams();
 
-  // useEffect(() => {
-  //   getUserTeachers();
-  //   getUserSubjects();
-  // }, []);
-
-  // function getUserSubjects() {
-  //   fetch("/subjects")
-  //     .then((res) => res.json())
-  //     .then((data) => setSubjects(data));
-  // }
-  // function getUserTeachers() {
-  //   fetch("/teachers")
-  //     .then((res) => res.json())
-  //     .then((returnedTeachers) => setTeachers(returnedTeachers));
-  // }
   if (!loggedIn) return null;
   const subjectsList =  user.subjects.map((s) => (
         <Grid

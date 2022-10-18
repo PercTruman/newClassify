@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { UserContext } from "./context/UserContext";
 import Navbar from "./Navbar";
 import Box from "@mui/material/Box";
@@ -9,7 +9,7 @@ import TextField from "@mui/material/TextField";
 
 function Student() {
   const {  user } = useContext(UserContext);
-  const [ students, setStudents ] = useState([user.students]);
+  const [ students, setStudents ] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     user_id: "",
@@ -45,7 +45,7 @@ function Student() {
     });
   };
 
-  const studentsList = user.students && user.students.map((s) => (
+  const studentsList = user && user.students.map((s) => (
     <Grid
       key={s.id}
       sx={{ padding: "10px", margin: "auto", textAlign: "center" }}

@@ -7,13 +7,12 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
 function Teacher() {
-  // const theme = useTheme();
 
   const { user } = useContext(UserContext);
   const [formData, setFormData] = useState({
     name: "",
   });
-  const [teachers, setTeachers] = useState([user.teachers]);
+  const [teachers, setTeachers] = useState([]);
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -21,17 +20,6 @@ function Teacher() {
       user_id: user.id,
     });
   };
-  console.log(user)
-
-  // useEffect(() => {
-  //   getUserTeachers();
-  // }, []);
-
-  // function getUserTeachers() {
-  //   fetch("/teachers")
-  //     .then((res) => res.json())
-  //     .then((returnedTeachers) => setTeachers(returnedTeachers));
-  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -53,7 +41,7 @@ function Teacher() {
       }
     });
   };
-  const teachersList = user.teachers.map((t) => (
+  const teachersList = user && user.teachers.map((t) => (
     <Grid
       item
       key={t.id}

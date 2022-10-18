@@ -1,150 +1,42 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useContext, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { UserContext } from "./context/UserContext";
 import Navbar from "./Navbar";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Unstable_Grid2";
-import Button from "@mui/material/Button";
+// import Grid from "@mui/material/Unstable_Grid2";
+// import Button from "@mui/material/Button";
 
 function SubjectDetail() {
-  const { user, loggedIn } = useContext(UserContext);
-  const navigate = useNavigate();
+  const { user } = useContext(UserContext);
   const { id } = useParams();
-  // const [subjects, setSubjects] = useState([]);
-  // const [students, setStudents] = useState([]);
-  const [checkedState, setCheckedState] = useState([]);
-  const [studentIds, setStudentIds] = useState([]);
-  const [targetSubject, setTargetSubject] = useState([]);
-  const [enrolledStudents, setEnrolledStudents] = useState([]);
 
-  useEffect(() => {
-  //  setStudentIds(user.students.map((student) => student.id));
-   
-    // rebuildStudentList(user.students);
-    // setCheckedState(new Array(user.students.length).fill(false));
-  }, []);
- 
-  const handleOnChange = (position) => {
-    const updatedCheckedState = checkedState.map((item, index) =>
-      index === position ? !item : item
-    );
-    setCheckedState(updatedCheckedState);
-  };
-  if (!user)  return <p>Loading...</p>; 
-  const studentCheckboxes = user && user.students.map((s, index) => (
-    <div key={s.id}>
-      <input
-        type="checkbox"
-        id={`${index}`}
-        name={s.name}
-        value={checkedState[index]}
-        onChange={() => handleOnChange(index)}
-      />
-      <label htmlFor={`custom-checkbox-${index}`}>{s.name}</label>
+
+
+
+  const foundDetails = user && user.subjects.find((subject) => Number(subject.id) == id)
+  const courseInstructor = user && user.teachers.find((teacher) => teacher.id === foundDetails.teacher_id)
+ console.log(user.teachers)
+ console.log(courseInstructor)
+
+
+  return (
+    <div>
+      <Navbar />
+      <Box sx={{ flexGrow: 1 }}>
+        <h2 style={{ textAlign: "center" }}>Class Detail</h2>
+      </Box>
+      <Box sx={{ flexGrow: 1, textAlign:"center"}}>
+        { user ?
+            <div>
+              <h3>Class: {foundDetails.name}</h3>
+              <h3>Time: {foundDetails.time}</h3> 
+              <h3>Location: {foundDetails.room_number}</h3> 
+              <h3>Teacher: {courseInstructor.name}</h3> 
+            </div>
+            :
+            null }
+      </Box>
     </div>
-  ));
-
-  const submitForUpdate = (e) => {
-    e.preventDefault();
-    const indexArray = checkedState
-      .map((value, index) => {
-        if (value === true) {
-          return studentIds[index];
-        } else {
-          return null;
-        }
-      })
-      .filter((element) => element !== null);
-
-    fetch(`/student_subjects/${id}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        indexArray,
-        user_id: user.id,
-      }),
-    })
-      .then((res) => res.json())
-      .then((student_subject_array) =>
-        addStudentNamesToList(student_subject_array)
-      );
-  };
-
-  function addStudentNamesToList(array) {
-    const studentIndexes = array.map((a) => a.student_id); //returns indexes from backend
-    const enrolledStudentIndexes = enrolledStudents.map((es) => es.id); //grabs currently enrolled students' indexes
-    const totalOfStudentIndexes = studentIndexes.concat(enrolledStudentIndexes); //merges 2 previous arrays into one array
-    const onlyUniqueIndexes = [...new Set(totalOfStudentIndexes)]; //removes duplicate indexes
-    const studentsForDisplay = user.students.filter((s) =>
-      onlyUniqueIndexes.includes(s.id) ? s : null
-    );
-    rebuildStudentList(studentsForDisplay);
-  }
-  function rebuildStudentList(studentsForDisplay) {
-    setEnrolledStudents(studentsForDisplay);
-  }
-
-  const displayedStudents =
-    enrolledStudents &&
-    enrolledStudents.map((student) => (
-      <Grid
-        key={student.id}
-        sx={{ padding: "10px", margin: "auto", textAlign: "center" }}
-      >
-        {student.name}
-      </Grid>
-    ));
-
-  if (user.subjects) {
-    return (
-      <div>
-        <Navbar />
-        <Box sx={{ flexGrow: 1 }}>
-          <h2
-            style={{ textAlign: "center" }}
-          >Class Detail</h2>
-          <Grid sx={{ justifyContent: "center" }} container spacing={2}></Grid>
-          <Grid
-            sx={{ justifyContent: "center" }}
-            container
-            spacing={2}
-            marginBottom="4rem"
-          >
-            <Grid>
-              <form onSubmit={submitForUpdate}>
-                {studentCheckboxes}
-                <Button
-                  sx={{ marginLeft: "2rem", marginTop: "2rem" }}
-                  variant="contained"
-                  type="submit"
-                >
-                  Add Students
-                </Button>
-
-                <Button
-                  variant="contained"
-                  onClick={() => navigate("/-subjects")}
-                  sx={{ marginLeft: "2rem", marginTop: "2rem" }}
-                >
-                  Back to All Subjects
-                </Button>
-              </form>
-            </Grid>
-          </Grid>
-        </Box>
-        <Grid container sx={{ justifyContent: "center" }}>
-          <Grid>
-            <h3>Currently Enrolled Students:</h3>
-            {displayedStudents}
-          </Grid>
-        </Grid>
-      </div>
-    );
-  } else {
-    return <h2>Loading...</h2>;
-  }
+  );
 }
 export default SubjectDetail;

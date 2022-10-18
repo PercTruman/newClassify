@@ -8,7 +8,14 @@ function UserProvider({ children }) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [errorsList, setErrorsList] = useState([]);
 
-
+  useEffect(() => {
+    fetch("/me")
+      .then((res) => res.json())
+      .then((data) => {
+        setUser(data);
+        data.error ? setLoggedIn(false) : setLoggedIn(true);
+      });
+  }, []);
 
   const login = (user) => {
     setUser(user);
