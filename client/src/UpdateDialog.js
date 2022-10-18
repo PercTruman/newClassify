@@ -6,17 +6,16 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-// import { useTheme } from "@mui/material/styles";
+// import { InputLabel } from '@mui/material';
 
-export default function UpdateDialog({ id, subjects, setSubjects }) {
-  // const theme = useTheme();
 
- 
+export default function UpdateDialog({ id, subjects, setSubjects, foundDetails, courseInstructor }) {
   const [open, setOpen] = React.useState(false);
   const [dialogFormData, setDialogFormData] = useState({
     name: "",
     room_number: "",
     time: "",
+    teacher: ""
   });
 
 
@@ -49,9 +48,13 @@ export default function UpdateDialog({ id, subjects, setSubjects }) {
 
     handleClose();
   };
+
+
   const handleChange = (e) => {
     setDialogFormData({ ...dialogFormData, [e.target.name]: e.target.value });
   };
+
+
   const handleClassDelete = (deletedSubjectId) => {
     fetch(`/subjects/${id}`, {
       method: "DELETE",
@@ -71,13 +74,13 @@ export default function UpdateDialog({ id, subjects, setSubjects }) {
   return (
     <div>
       <Button sx={{mb: "1rem"}}variant="contained" onClick={handleClickOpen}>
-        Details
+        Edit Details
       </Button>
 
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClose} >
         <form onSubmit={(e) => submitForUpdate(e, id)}>
           <DialogTitle>Edit Class</DialogTitle>
-          <DialogContent>
+          <DialogContent sx={{background: "white"}}>
             <DialogContentText>
               To edit this class, make the necessary changes, then click "Save
               Changes."
@@ -87,9 +90,10 @@ export default function UpdateDialog({ id, subjects, setSubjects }) {
               value={dialogFormData.name}
               name="name"
               onChange={handleChange}
+           
               margin="dense"
               id="name"
-              label="Class Name"
+              label={foundDetails.name}
               type="text"
               fullWidth
               variant="standard"
@@ -101,7 +105,7 @@ export default function UpdateDialog({ id, subjects, setSubjects }) {
               onChange={handleChange}
               margin="dense"
               id="room_number"
-              label="Room Number"
+              label={foundDetails.room_number}
               type="text"
               fullWidth
               variant="standard"
@@ -112,7 +116,18 @@ export default function UpdateDialog({ id, subjects, setSubjects }) {
               onChange={handleChange}
               margin="dense"
               id="time"
-              label="Time"
+              label={foundDetails.time}
+              type="text"
+              fullWidth
+              variant="standard"
+            />
+            <TextField
+              value={dialogFormData.teacher}
+              name="time"
+              onChange={handleChange}
+              margin="dense"
+              id="time"
+              label={courseInstructor.name}
               type="text"
               fullWidth
               variant="standard"

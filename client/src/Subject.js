@@ -39,19 +39,7 @@ function Subject() {
             >
               Details
             </Button>
-            {/* <UpdateDialog
-            key={s.id}
-            id={s.id}
-            subjects={subjects}
-            setSubjects={setSubjects}
-          /> */}
-            {/* <Button
-            sx={{ mt: 2, mb: 2 }}
-            variant="contained"
-            onClick={() => navigate(`/-subjects/${s.id}`)}
-          >
-            Add Students
-          </Button> */}
+         
           </Paper>
         </Grid>
       ))

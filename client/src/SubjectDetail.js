@@ -1,22 +1,17 @@
 import React, { useContext, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { UserContext } from "./context/UserContext";
 import Navbar from "./Navbar";
 import Box from "@mui/material/Box";
-// import Grid from "@mui/material/Unstable_Grid2";
-// import Button from "@mui/material/Button";
+import UpdateDialog from "./UpdateDialog"
+import Button from "@mui/material/Button";
 
 function SubjectDetail() {
   const { user } = useContext(UserContext);
   const { id } = useParams();
-
-
-
-
   const foundDetails = user && user.subjects.find((subject) => Number(subject.id) == id)
   const courseInstructor = user && user.teachers.find((teacher) => teacher.id === foundDetails.teacher_id)
- console.log(user.teachers)
- console.log(courseInstructor)
+const navigate = useNavigate();
 
 
   return (
@@ -34,7 +29,19 @@ function SubjectDetail() {
               <h3>Teacher: {courseInstructor.name}</h3> 
             </div>
             :
-            null }
+            null
+        }
+           <UpdateDialog
+           foundDetails={foundDetails}
+           courseInstructor={courseInstructor}
+          /> 
+            <Button
+            sx={{ mt: 2, mb: 2 }}
+            variant="contained"
+            onClick={() => navigate(`/-subjects/${foundDetails.id}`)}
+          >
+            Add Students
+          </Button>
       </Box>
     </div>
   );
