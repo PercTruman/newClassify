@@ -55,7 +55,7 @@ function CreateClassForm() {
     });
   };
 
-  const dropDownOptions = teachers.map((t) => (
+  const dropDownOptions = user.teachers.map((t) => (
     <MenuItem key={t.id} type="integer" name="t.id" value={t.id}>
       {t.name}
     </MenuItem>

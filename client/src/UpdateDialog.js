@@ -6,7 +6,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-// import { InputLabel } from '@mui/material';
+
 
 
 export default function UpdateDialog({ id, subjects, setSubjects, foundDetails, courseInstructor }) {
@@ -76,7 +76,7 @@ export default function UpdateDialog({ id, subjects, setSubjects, foundDetails, 
       <Button sx={{mb: "1rem"}}variant="contained" onClick={handleClickOpen}>
         Edit Details
       </Button>
-
+      { foundDetails ?
       <Dialog open={open} onClose={handleClose} >
         <form onSubmit={(e) => submitForUpdate(e, id)}>
           <DialogTitle>Edit Class</DialogTitle>
@@ -90,7 +90,6 @@ export default function UpdateDialog({ id, subjects, setSubjects, foundDetails, 
               value={dialogFormData.name}
               name="name"
               onChange={handleChange}
-           
               margin="dense"
               id="name"
               label={foundDetails.name}
@@ -149,6 +148,9 @@ export default function UpdateDialog({ id, subjects, setSubjects, foundDetails, 
           </DialogActions>
         </form>
       </Dialog>
+      :
+      null 
+      }
     </div>
   );
 }

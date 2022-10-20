@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "./context/UserContext";
 import Navbar from "./Navbar";
 import Box from "@mui/material/Box";
@@ -9,12 +9,16 @@ import TextField from "@mui/material/TextField";
 
 function Student() {
   const {  user } = useContext(UserContext);
-  const [ students, setStudents ] = useState([]);
+  const [ theseStudents, setTheseStudents ] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     user_id: "",
   });
 
+  useEffect(()=>{
+    setTheseStudents( user && user.students)
+  },
+  [user])
 
   const handleChange = (e) => {
     setFormData({
@@ -23,7 +27,7 @@ function Student() {
       user_id: user.id,
     });
   };
- 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch("/students", {
@@ -32,8 +36,9 @@ function Student() {
       body: JSON.stringify(formData),
     }).then((res) => {
       if (res.ok) {
-        res.json().then((updatedStudentList) => {
-          setStudents(updatedStudentList);
+        res.json().then((newStudentList) => {
+          
+         setTheseStudents(newStudentList)
           setFormData({ name: "", user_id: "" });
         });
       } else {
@@ -45,9 +50,17 @@ function Student() {
     });
   };
 
-  const studentsList = user && user.students.map((s) => (
+  // function renderNewList(list){
+  //   console.log(list)
+  //   setTheseStudents(list)
+
+  // }
+
+
+
+  const studentsList = theseStudents && theseStudents.map((s) => (
     <Grid
-      key={s.id}
+      key = {s.id}
       sx={{ padding: "10px", margin: "auto", textAlign: "center" }}
     >
       {s.name}
