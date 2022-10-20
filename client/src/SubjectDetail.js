@@ -11,7 +11,7 @@ function SubjectDetail() {
   const { id } = useParams();
   const foundDetails = user && user.subjects.find((subject) => Number(subject.id) == id)
   const courseInstructor = user && user.teachers.find((teacher) => teacher.id === foundDetails.teacher_id)
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
 
   return (

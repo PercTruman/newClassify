@@ -1,4 +1,4 @@
-import React, { useState, useContext} from "react";
+import React, { useState, useContext, useEffect} from "react";
 import { useNavigate} from "react-router-dom";
 import { UserContext } from "./context/UserContext";
 import Paper from "@mui/material/Paper";
@@ -12,9 +12,19 @@ function Subject() {
   const { user, loggedIn } = useContext(UserContext);
   const navigate = useNavigate();
   const [showClassForm, setShowClassForm] = useState(false);
+  const [theseSubjects, setTheseSubjects] = useState([]);
+
+  useEffect(() => {
+    setTheseSubjects(user && user.subjects);
+  }, [user]);
+
+  function updateSubjectDisplay(theseSubjectsList){
+    console.log(theseSubjectsList);
+      setTheseSubjects(theseSubjectsList);  
+  }
 
   if (!loggedIn) return null;
-  const subjectsList =  user.subjects.map((s) => (
+  const subjectsList =  theseSubjects && theseSubjects.map((s) => (
         <Grid
           item
           key={s.id}
@@ -29,9 +39,6 @@ function Subject() {
         >
           <Paper elevation={24} sx={{ paddingTop: "1rem" }}>
             <h3>{s.name}</h3>
-            {/* <h3>Teacher: {s.teacher.name}</h3>
-          <h3>Room: {s.room_number}</h3>
-          <h3>Time: {s.time}</h3> */}
             <Button
               sx={{ mb: "1rem" }}
               variant="contained"
@@ -39,7 +46,6 @@ function Subject() {
             >
               Details
             </Button>
-         
           </Paper>
         </Grid>
       ))
@@ -57,7 +63,7 @@ function Subject() {
           Create New Class
         </Button>
       </Box>
-      {showClassForm ? <CreateClassForm /> : null}
+      {showClassForm ? <CreateClassForm updateSubjectDisplay={updateSubjectDisplay}/> : null}
       <Box sx={{ textAlign: "center" }}>
         <h2>Classes</h2>
       </Box>

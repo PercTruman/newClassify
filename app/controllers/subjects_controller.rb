@@ -16,10 +16,10 @@ class SubjectsController < ApplicationController
 
      def create
        
-         subject = current_user.subjects.new(subject_params)
+         subjects = Subject.new(subject_params)
             
-        if subject.save
-             render json: subject, status: :ok
+        if subjects.save
+             render json: current_user.subjects, status: :ok
         else
             render json: {error: "This form is either complete, or this class name has been taken."}, status: :unprocessable_entity
         end

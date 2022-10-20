@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext} from "react";
 import { UserContext } from "./context/UserContext";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 
-function CreateClassForm() {
+function CreateClassForm( {updateSubjectDisplay}) {
   const { user, errorsList } = useContext(UserContext);
   const [formData, setFormData] = useState({
     name: "",
@@ -18,8 +18,8 @@ function CreateClassForm() {
     teacher_id: "",
     user_id: "",
   });
-  const [subjects, setSubjects] = useState([]);
-  const [teachers, setTeachers] = useState([]);
+
+
 
   const handleChange = (e) => {
     setFormData({
@@ -36,9 +36,8 @@ function CreateClassForm() {
       body: JSON.stringify(formData),
     }).then((res) => {
       if (res.ok) {
-        res.json().then((newSubject) => {
-          const updatedSubjectList = [...subjects, newSubject];
-          setSubjects(updatedSubjectList);
+        res.json().then((newSubjectList) => {
+          updateSubjectDisplay(newSubjectList);
           setFormData({
             name: "",
             room_number: "",
