@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from "react";
+import React, { useContext} from "react";
 import { UserContext } from "./context/UserContext";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";

@@ -10,9 +10,9 @@ import Navbar from "./Navbar";
 
 function Subject() {
   const { user, loggedIn } = useContext(UserContext);
-  const navigate = useNavigate();
   const [showClassForm, setShowClassForm] = useState(false);
   const [theseSubjects, setTheseSubjects] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTheseSubjects(user && user.subjects);
@@ -49,6 +49,10 @@ function Subject() {
           </Paper>
         </Grid>
       ))
+
+      // function toggleButtonText(){
+      //   showClassForm ? 'Cancel' : 'Create New Class'
+      // }
    
 
   return (
