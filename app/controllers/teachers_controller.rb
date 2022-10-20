@@ -7,12 +7,12 @@ class TeachersController < ApplicationController
     end
 
     def create
-        teacher = current_user.teachers.new(teacher_params)
+        teachers = Teacher.new(teacher_params)
     
-        if teacher.save
-          render json: teacher, status: :created
+        if teachers.save
+          render json: current_user.teachers, status: :created
         else
-          render json: teacher.errors, status: :unprocessable_entity
+          render json: teachers.errors, status: :unprocessable_entity
         end
     end
 

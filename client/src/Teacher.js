@@ -1,4 +1,4 @@
-import React, { useState, useContext} from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "./context/UserContext";
 import Navbar from "./Navbar";
 import Box from "@mui/material/Box";
@@ -7,12 +7,11 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
 function Teacher() {
-
   const { user } = useContext(UserContext);
   const [formData, setFormData] = useState({
     name: "",
   });
-  const [teachers, setTeachers] = useState([]);
+  const [theseTeachers, setTheseTeachers] = useState([]);
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -20,6 +19,10 @@ function Teacher() {
       user_id: user.id,
     });
   };
+
+  useEffect(() => {
+    setTheseTeachers(user && user.teachers);
+  }, [user]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,8 +32,8 @@ function Teacher() {
       body: JSON.stringify(formData),
     }).then((res) => {
       if (res.ok) {
-        res.json().then((newTeacher) => {
-          setTeachers([...user.teachers, newTeacher]);
+        res.json().then((newTeacherList) => {
+          setTheseTeachers(newTeacherList);
           setFormData({ name: "", user_id: "" });
         });
       } else {
@@ -41,20 +44,23 @@ function Teacher() {
       }
     });
   };
-  const teachersList = user && user.teachers.map((t) => (
-    <Grid
-      item
-      key={t.id}
-      sx={{
-        padding: "10px",
-        margin: "auto",
-        textAlign: "center",
-      }}
-    >
-      {t.name}
-    </Grid>
-  ));
-  return user ? (
+  
+  const teachersList =
+    theseTeachers &&
+    theseTeachers.map((t) => (
+      <Grid
+        item
+        key={t.id}
+        sx={{
+          padding: "10px",
+          margin: "auto",
+          textAlign: "center",
+        }}
+      >
+        {t.name}
+      </Grid>
+    ));
+  return (
     <div>
       <Navbar />
       <Box sx={{ flexGrow: 1 }}>
@@ -88,10 +94,6 @@ function Teacher() {
           {teachersList}
         </Grid>
       </Grid>
-    </div>
-  ) : (
-    <div>
-      <h2>Loading Teachers...</h2>
     </div>
   );
 }

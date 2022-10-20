@@ -6,19 +6,17 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
-
 function Student() {
-  const {  user } = useContext(UserContext);
-  const [ theseStudents, setTheseStudents ] = useState([]);
+  const { user } = useContext(UserContext);
+  const [theseStudents, setTheseStudents] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     user_id: "",
   });
 
-  useEffect(()=>{
-    setTheseStudents( user && user.students)
-  },
-  [user])
+  useEffect(() => {
+    setTheseStudents(user && user.students);
+  }, [user]);
 
   const handleChange = (e) => {
     setFormData({
@@ -37,8 +35,7 @@ function Student() {
     }).then((res) => {
       if (res.ok) {
         res.json().then((newStudentList) => {
-          
-         setTheseStudents(newStudentList)
+          setTheseStudents(newStudentList);
           setFormData({ name: "", user_id: "" });
         });
       } else {
@@ -50,22 +47,16 @@ function Student() {
     });
   };
 
-  // function renderNewList(list){
-  //   console.log(list)
-  //   setTheseStudents(list)
-
-  // }
-
-
-
-  const studentsList = theseStudents && theseStudents.map((s) => (
-    <Grid
-      key = {s.id}
-      sx={{ padding: "10px", margin: "auto", textAlign: "center" }}
-    >
-      {s.name}
-    </Grid>
-  ));
+  const studentsList =
+    theseStudents &&
+    theseStudents.map((s) => (
+      <Grid
+        key={s.id}
+        sx={{ padding: "10px", margin: "auto", textAlign: "center" }}
+      >
+        {s.name}
+      </Grid>
+    ));
   return (
     <div>
       <Navbar />
