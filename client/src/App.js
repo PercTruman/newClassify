@@ -1,5 +1,4 @@
-import React, { useContext} from "react";
-import { UserContext } from "./context/UserContext";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import './App.css';
@@ -16,11 +15,7 @@ import Teacher from "./Teacher";
 
 
 function App() {
-  const {setUser, setLoggedIn } = useContext(UserContext);
-
-  
-  
-  return (
+ return (
     <div className="App" >
       <ThemeProvider  theme={theme}>
         <Routes>

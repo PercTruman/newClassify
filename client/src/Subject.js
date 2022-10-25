@@ -9,7 +9,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Navbar from "./Navbar";
 
 function Subject() {
-  const { user, loggedIn } = useContext(UserContext);
+  const { user} = useContext(UserContext);
   const [showClassForm, setShowClassForm] = useState(false);
   const [theseSubjects, setTheseSubjects] = useState([]);
   const navigate = useNavigate();
@@ -19,11 +19,9 @@ function Subject() {
   }, [user]);
 
   function updateSubjectDisplay(theseSubjectsList){
-    console.log(theseSubjectsList);
       setTheseSubjects(theseSubjectsList);  
   }
 
-  if (!loggedIn) return null;
   const subjectsList =  theseSubjects && theseSubjects.map((s) => (
         <Grid
           item
@@ -49,10 +47,6 @@ function Subject() {
           </Paper>
         </Grid>
       ))
-
-      // function toggleButtonText(){
-      //   showClassForm ? 'Cancel' : 'Create New Class'
-      // }
    
 
   return (

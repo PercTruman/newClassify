@@ -26,9 +26,10 @@ class SubjectsController < ApplicationController
     end
 
     def update
-    
+
         subject = current_user.subjects.find_by(id: params[:id])
          if subject 
+           
             subject.update(subject_params)
              render json: subject, status: :ok
         else

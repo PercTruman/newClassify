@@ -1,4 +1,6 @@
-import React, { useState} from "react";
+import React, { useState, useContext} from "react";
+import {UserContext} from "./context/UserContext";
+import {useParams} from "react-router-dom";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -9,14 +11,19 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 
 
-export default function UpdateDialog({ id, subjects, setSubjects, foundDetails, courseInstructor }) {
+export default function UpdateDialog({  theseSubjects, subjects, setSubjects, foundDetails, courseInstructor }) {
+
   const [open, setOpen] = React.useState(false);
   const [dialogFormData, setDialogFormData] = useState({
     name: "",
     room_number: "",
     time: "",
-    teacher: ""
+    teacher: "",
+    user_id: ""
   });
+  const { id } = useParams();
+  const { user } = useContext(UserContext)
+  
 
 
   const handleClickOpen = () => {
@@ -36,13 +43,17 @@ export default function UpdateDialog({ id, subjects, setSubjects, foundDetails, 
         name: dialogFormData.name,
         room_number: dialogFormData.room_number,
         time: dialogFormData.time,
+        teacher_id: courseInstructor.id,
+        user_id: user.id
       }),
     })
       .then((res) => res.json())
       .then((updatedSubject) => {
-        const updatedSubjectList = subjects.map((s) =>
+        console.log(updatedSubject)
+        const updatedSubjectList = subjects && subjects.map((s) =>
           s.id === Number(updatedSubject.id) ? updatedSubject : s
         );
+        console.log(updatedSubjectList)
         setSubjects(updatedSubjectList);
       });
 
@@ -51,7 +62,7 @@ export default function UpdateDialog({ id, subjects, setSubjects, foundDetails, 
 
 
   const handleChange = (e) => {
-    setDialogFormData({ ...dialogFormData, [e.target.name]: e.target.value });
+    setDialogFormData({ ...dialogFormData, [e.target.name]: e.target.value,  user_id: user.id, });
   };
 
 
@@ -122,10 +133,10 @@ export default function UpdateDialog({ id, subjects, setSubjects, foundDetails, 
             />
             <TextField
               value={dialogFormData.teacher}
-              name="time"
+              name="teacher"
               onChange={handleChange}
               margin="dense"
-              id="time"
+              id="teacher"
               label={courseInstructor.name}
               type="text"
               fullWidth

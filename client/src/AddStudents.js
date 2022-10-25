@@ -1,7 +1,5 @@
-import React from 'react'
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Unstable_Grid2";
-import Button from "@mui/material/Button";
+import React, {useContext} from 'react'
+import { UserContext } from './context/UserContext';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -21,27 +19,18 @@ const MenuProps = {
   },
 };
 
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
+
 function AddStudents() {
+  const { user } = useContext(UserContext)
   const [personName, setPersonName] = React.useState([]);
+  const names = user && user.students.map(student => student.name)
+  const ids = user && user.students.map(student => student.id)
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
     setPersonName(
-      // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
   };
@@ -60,12 +49,13 @@ function AddStudents() {
           renderValue={(selected) => selected.join(', ')}
           MenuProps={MenuProps}
         >
-          {names.map((name) => (
+          {names ? names.map((name) => (
             <MenuItem key={name} value={name}>
               <Checkbox checked={personName.indexOf(name) > -1} />
               <ListItemText primary={name} />
-            </MenuItem>
-          ))}
+            </MenuItem> )): null
+          }
+          
         </Select>
       </FormControl>
     </div>
