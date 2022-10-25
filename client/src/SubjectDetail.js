@@ -10,9 +10,10 @@ function SubjectDetail() {
   const { user } = useContext(UserContext);
   const { id } = useParams();
   
+  if (!user) return null;
 
   const foundDetails = user.subjects.find((subject) =>  subject.id == id);
-  const courseInstructor = user.teachers.find((teacher) => teacher.id == foundDetails.teacher_id);
+  const courseInstructor = user.teachers.find((teacher) => Number(teacher.id) === foundDetails.teacher_id);
 
 
   return (
