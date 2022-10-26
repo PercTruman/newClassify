@@ -6,7 +6,6 @@ const UserContext = createContext();
 function UserProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [errorsList, setErrorsList] = useState([]);
 
   useEffect(() => {
     fetch("/me")
@@ -32,6 +31,17 @@ function UserProvider({ children }) {
     setLoggedIn(true);
   };
 
+  const makeNewSubjectList = (updatedSubject)=> {
+    const keptSubjects = user.subjects.filter(subject => subject.id !== updatedSubject.id)
+    const newList = [...keptSubjects, updatedSubject]
+    updateUserSubjects({...user, user_subjects: newList})
+   }
+
+  function updateUserSubjects(newData) {
+    setUser(newData);
+  }
+
+
   return (
     <UserContext.Provider
       value={{
@@ -42,9 +52,7 @@ function UserProvider({ children }) {
         logout,
         signup,
         loggedIn,
-        errorsList,
-        setErrorsList,
-      }}
+        makeNewSubjectList      }}
     >
       {children}
     </UserContext.Provider>
