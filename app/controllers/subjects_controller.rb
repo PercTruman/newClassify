@@ -2,7 +2,7 @@ class SubjectsController < ApplicationController
 
     def index
         subject = current_user.subjects
-        render json: subject,  status: :ok
+        render json: subject, status: :ok
     end
 
     def show

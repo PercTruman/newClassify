@@ -9,7 +9,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export default function UpdateDialog({ name, time, room_number, teacher }) {
+export default function UpdateDialog({ name, time, room_number, teacher, teacher_id }) {
+
   const [open, setOpen] = React.useState(false);
   const [dialogFormData, setDialogFormData] = useState({
     name: "",
@@ -38,7 +39,7 @@ export default function UpdateDialog({ name, time, room_number, teacher }) {
         name: dialogFormData.name,
         room_number: dialogFormData.room_number,
         time: dialogFormData.time,
-        teacher_id: teacher.id,
+        teacher_id: teacher_id,
         user_id: user.id,
       }),
     })
@@ -70,7 +71,7 @@ export default function UpdateDialog({ name, time, room_number, teacher }) {
         const subjectsMinusDeleted = user.subjects.filter(
           (subject) => subject.id != id
         );
-        console.log(subjectsMinusDeleted);
+     
         setUser((user) => ({ ...user, subjects: subjectsMinusDeleted }));
         navigate("/-subjects");
       } else {
@@ -136,7 +137,7 @@ export default function UpdateDialog({ name, time, room_number, teacher }) {
                 onChange={handleChange}
                 margin="dense"
                 id="teacher"
-                label={teacher.name}
+                label={teacher}
                 type="text"
                 fullWidth
                 variant="standard"

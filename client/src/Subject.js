@@ -13,6 +13,7 @@ function Subject() {
   const [showClassForm, setShowClassForm] = useState(false);
   const [theseSubjects, setTheseSubjects] = useState([]);
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     setTheseSubjects(user && user.subjects);
@@ -61,7 +62,7 @@ function Subject() {
           Create New Class
         </Button>
       </Box>
-      {showClassForm ? <CreateClassForm updateSubjectDisplay={updateSubjectDisplay}/> : null}
+      {showClassForm ? <CreateClassForm /> : null}
       <Box sx={{ textAlign: "center" }}>
         <h2>Classes</h2>
       </Box>
