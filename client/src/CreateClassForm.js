@@ -9,8 +9,8 @@ import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 
-function CreateClassForm( {updateSubjectDisplay}) {
-  const { user, errorsList } = useContext(UserContext);
+function CreateClassForm() {
+  const { user, setUser, errorsList } = useContext(UserContext);
   const [formData, setFormData] = useState({
     name: "",
     room_number: "",
@@ -37,7 +37,8 @@ function CreateClassForm( {updateSubjectDisplay}) {
     }).then((res) => {
       if (res.ok) {
         res.json().then((newSubjectList) => {
-          updateSubjectDisplay(newSubjectList);
+       setUser({...user, subjects: newSubjectList})
+     
           setFormData({
             name: "",
             room_number: "",

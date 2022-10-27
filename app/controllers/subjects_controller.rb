@@ -42,7 +42,7 @@ class SubjectsController < ApplicationController
         subject = Subject.find_by(id: params[:id])
         if subject
             subject.destroy
-            head :no_content
+            head :no_content, status: :ok
             
         else
             render json: {error: "Class Not Found"}, status: :not_found
@@ -52,7 +52,7 @@ class SubjectsController < ApplicationController
 
     private
     def subject_params
-        params.permit(:name, :room_number, :time, :teacher_id, :user_id)
+        params.permit(:name, :room_number, :time, :teacher_id, :user_id, :id)
     end
  end
         

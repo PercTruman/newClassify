@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "./context/UserContext";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -9,10 +9,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export default function UpdateDialog({
-  thisSubject,
-  thisInstructor
-}) {
+export default function UpdateDialog({ name, time, room_number, teacher }) {
   const [open, setOpen] = React.useState(false);
   const [dialogFormData, setDialogFormData] = useState({
     name: "",
@@ -22,8 +19,8 @@ export default function UpdateDialog({
     user_id: "",
   });
   const { id } = useParams();
-  const { user, makeNewSubjectList} = useContext(UserContext);
-
+  const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -41,13 +38,17 @@ export default function UpdateDialog({
         name: dialogFormData.name,
         room_number: dialogFormData.room_number,
         time: dialogFormData.time,
-        teacher_id: thisInstructor.id,
+        teacher_id: teacher.id,
         user_id: user.id,
       }),
     })
       .then((res) => res.json())
       .then((updatedSubject) => {
-        makeNewSubjectList(updatedSubject)
+        const keptSubjects = user.subjects.filter(
+          (subject) => subject.id !== updatedSubject.id
+        );
+        const newList = [...keptSubjects, updatedSubject];
+        setUser({ ...user, subjects: newList });
       });
 
     handleClose();
@@ -61,14 +62,17 @@ export default function UpdateDialog({
     });
   };
 
-  const handleClassDelete = (deletedSubjectId) => {
+  const handleClassDelete = () => {
     fetch(`/subjects/${id}`, {
       method: "DELETE",
     }).then((res) => {
       if (res.ok) {
-        // setSubjects(
-        //   subjects.filter((s) => (s.id !== deletedSubjectId ))
-        // );
+        const subjectsMinusDeleted = user.subjects.filter(
+          (subject) => subject.id != id
+        );
+        console.log(subjectsMinusDeleted);
+        setUser((user) => ({ ...user, subjects: subjectsMinusDeleted }));
+        navigate("/-subjects");
       } else {
         res.json().then((errors) => {
           alert(errors.error);
@@ -82,7 +86,7 @@ export default function UpdateDialog({
       <Button sx={{ mb: "1rem" }} variant="contained" onClick={handleClickOpen}>
         Edit Details
       </Button>
-      {thisSubject ? (
+      {/* {thisSubject ? ( */}
         <Dialog open={open} onClose={handleClose}>
           <form onSubmit={(e) => submitForUpdate(e, id)}>
             <DialogTitle>Edit Class</DialogTitle>
@@ -98,7 +102,7 @@ export default function UpdateDialog({
                 onChange={handleChange}
                 margin="dense"
                 id="name"
-                label={thisSubject.name}
+                label={name}
                 type="text"
                 fullWidth
                 variant="standard"
@@ -110,7 +114,7 @@ export default function UpdateDialog({
                 onChange={handleChange}
                 margin="dense"
                 id="room_number"
-                label={thisSubject.room_number}
+                label={room_number}
                 type="text"
                 fullWidth
                 variant="standard"
@@ -121,7 +125,7 @@ export default function UpdateDialog({
                 onChange={handleChange}
                 margin="dense"
                 id="time"
-                label={thisSubject.time}
+                label={time}
                 type="text"
                 fullWidth
                 variant="standard"
@@ -132,7 +136,7 @@ export default function UpdateDialog({
                 onChange={handleChange}
                 margin="dense"
                 id="teacher"
-                label={thisInstructor.name}
+                label={teacher.name}
                 type="text"
                 fullWidth
                 variant="standard"
@@ -154,7 +158,7 @@ export default function UpdateDialog({
             </DialogActions>
           </form>
         </Dialog>
-      ) : null}
+      {/* ) : null} */}
     </div>
   );
 }

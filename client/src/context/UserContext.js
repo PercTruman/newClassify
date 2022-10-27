@@ -31,15 +31,6 @@ function UserProvider({ children }) {
     setLoggedIn(true);
   };
 
-  const makeNewSubjectList = (updatedSubject)=> {
-    const keptSubjects = user.subjects.filter(subject => subject.id !== updatedSubject.id)
-    const newList = [...keptSubjects, updatedSubject]
-    updateUserSubjects({...user, user_subjects: newList})
-   }
-
-  function updateUserSubjects(newData) {
-    setUser(newData);
-  }
 
 
   return (
@@ -51,8 +42,8 @@ function UserProvider({ children }) {
         login,
         logout,
         signup,
-        loggedIn,
-        makeNewSubjectList      }}
+        loggedIn,   
+       }}
     >
       {children}
     </UserContext.Provider>
