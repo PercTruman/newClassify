@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import {useNavigate} from "react-router-dom"
 import { UserContext } from "./context/UserContext";
 import Navbar from "./Navbar";
 import Box from "@mui/material/Box";
@@ -7,12 +8,14 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
 function Student() {
-  const { user } = useContext(UserContext);
+  const { user, loggedIn } = useContext(UserContext);
   const [theseStudents, setTheseStudents] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     user_id: "",
   });
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     setTheseStudents(user && user.students);
@@ -57,41 +60,46 @@ function Student() {
         {s.name}
       </Grid>
     ));
-  return (
-    <div>
-      <Navbar />
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid sx={{ justifyContent: "center" }} container spacing={2}>
-          <form onSubmit={handleSubmit}>
-            <h2 style={{ textAlign: "center" }}>Add Student</h2>
 
-            <TextField
-              size="small"
-              name="name"
-              type="text"
-              autoComplete="on"
-              id="name"
-              value={formData.name}
-              onChange={handleChange}
-            />
-            <Button
-              sx={{ marginLeft: "2rem" }}
-              variant="contained"
-              type="submit"
-            >
-              Add Student
-            </Button>
-          </form>
-        </Grid>
-      </Box>
-      <Grid container sx={{ justifyContent: "center" }}>
-        <Grid>
-          <h2 style={{ marginTop: "4rem" }}> Current Students</h2>
-          {studentsList}
-        </Grid>
-      </Grid>
-    </div>
-  );
+    if (loggedIn) {
+     return (
+        <div>
+          <Navbar />
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid sx={{ justifyContent: "center" }} container spacing={2}>
+              <form onSubmit={handleSubmit}>
+                <h2 style={{ textAlign: "center" }}>Add Student</h2>
+
+                <TextField
+                  size="small"
+                  name="name"
+                  type="text"
+                  autoComplete="on"
+                  id="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                />
+                <Button
+                  sx={{ marginLeft: "2rem" }}
+                  variant="contained"
+                  type="submit"
+                >
+                  Add Student
+                </Button>
+              </form>
+            </Grid>
+          </Box>
+          <Grid container sx={{ justifyContent: "center" }}>
+            <Grid>
+              <h2 style={{ marginTop: "4rem" }}> Current Students</h2>
+              {studentsList}
+            </Grid>
+          </Grid>
+        </div>
+      )}
+      else {
+        navigate('/')
+      };
 }
 
 export default Student;

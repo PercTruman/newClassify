@@ -9,7 +9,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Navbar from "./Navbar";
 
 function Subject() {
-  const { user} = useContext(UserContext);
+  const { user, loggedIn} = useContext(UserContext);
   const [showClassForm, setShowClassForm] = useState(false);
   const [theseSubjects, setTheseSubjects] = useState([]);
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ function Subject() {
         </Grid>
       ))
    
-
+  if (loggedIn) {
   return (
     <div>
       <Navbar />
@@ -67,7 +67,10 @@ function Subject() {
         {subjectsList}
       </Grid>
     </div>
-  );
+  )}
+  else {
+    navigate('/')
+  };
 }
 
 export default Subject;
