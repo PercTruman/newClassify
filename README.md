@@ -15,7 +15,7 @@ Run rails s to start the backend
 Run npm start --prefix client
 
 #### How to use
-You must create a new user  by using the sign-in feature.  Once signed in you can:
+You must first create a new user by using the sign-in feature.  Once signed in you can:
 
 1. Enter students' names for your campus using the Navigation bar's "Students" link.
 2. Enter faculty names for your campus using the Navigation bar's "Teachers" link.

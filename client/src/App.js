@@ -11,12 +11,22 @@ import Student from "./Student";
 import Subject from "./Subject";
 import SubjectDetail from "./SubjectDetail";
 import Teacher from "./Teacher";
+import backgroundWithPencils from "./images/backgroundWithPencils.jpg"
 
 
 
 function App() {
  return (
-    <div className="App" >
+    <div className="App"
+          style={{
+            backgroundImage: `url(${backgroundWithPencils})`,
+            margin: "0 auto",
+            height: "100vh",
+            width: "auto",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+          }} >
+      
       <ThemeProvider  theme={theme}>
         <Routes>
           <Route path="/" element={<Welcome />} />
