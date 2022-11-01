@@ -19,9 +19,6 @@ function Subject() {
     setTheseSubjects(user && user.subjects);
   }, [user]);
 
-  function updateSubjectDisplay(theseSubjectsList){
-      setTheseSubjects(theseSubjectsList);  
-  }
 
   const subjectsList =  theseSubjects && theseSubjects.map((s) => (
         <Grid
@@ -41,7 +38,7 @@ function Subject() {
             <Button
               sx={{ mb: "1rem" }}
               variant="contained"
-              onClick={() => navigate(`/-subjects/${s.id}`, { state: {id: s.id, name: s.name, room_number: s.room_number, time: s.time, teacher_id: s.teacher_id}} )}
+              onClick={() => navigate(`/-subjects/${s.id}`, { state: {id: s.id, name: s.name, room_number: s.room_number, time: s.time, teacher_id: s.teacher_id } } )}
             >
               Details
             </Button>

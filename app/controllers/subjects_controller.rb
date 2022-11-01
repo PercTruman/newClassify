@@ -26,12 +26,10 @@ class SubjectsController < ApplicationController
     end
 
     def update
-
         subject = current_user.subjects.find_by(id: params[:id])
          if subject 
-           
             subject.update(subject_params)
-             render json: subject, status: :ok
+            render json: subject, status: :ok
         else
             render json: {error: "Not found"}, status: :not_found
         end
@@ -52,7 +50,7 @@ class SubjectsController < ApplicationController
 
     private
     def subject_params
-        params.permit(:name, :room_number, :time, :teacher_id, :user_id, :id)
+        params.permit(:name, :room_number, :time,  :teacher, :teacher_id, :user_id, :id)
     end
  end
         

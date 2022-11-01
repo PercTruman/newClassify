@@ -9,8 +9,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export default function UpdateDialog({ name, time, room_number, teacher, teacher_id }) {
-
+export default function UpdateDialog({ name, time, room_number }) {
   const [open, setOpen] = React.useState(false);
   const [dialogFormData, setDialogFormData] = useState({
     name: "",
@@ -39,19 +38,21 @@ export default function UpdateDialog({ name, time, room_number, teacher, teacher
         name: dialogFormData.name,
         room_number: dialogFormData.room_number,
         time: dialogFormData.time,
-        teacher_id: teacher_id,
         user_id: user.id,
       }),
     })
       .then((res) => res.json())
       .then((updatedSubject) => {
+        console.log(updatedSubject);
         const keptSubjects = user.subjects.filter(
           (subject) => subject.id !== updatedSubject.id
         );
+        console.log(keptSubjects);
         const newList = [...keptSubjects, updatedSubject];
-        setUser({ ...user, subjects: newList });
+        console.log(newList);
+        setUser((user) => ({ ...user, subjects: newList }));
+        navigate("/-subjects");
       });
-
     handleClose();
   };
 
@@ -71,7 +72,7 @@ export default function UpdateDialog({ name, time, room_number, teacher, teacher
         const subjectsMinusDeleted = user.subjects.filter(
           (subject) => subject.id != id
         );
-     
+
         setUser((user) => ({ ...user, subjects: subjectsMinusDeleted }));
         navigate("/-subjects");
       } else {
@@ -87,78 +88,66 @@ export default function UpdateDialog({ name, time, room_number, teacher, teacher
       <Button sx={{ mb: "1rem" }} variant="contained" onClick={handleClickOpen}>
         Edit Details
       </Button>
-      {/* {thisSubject ? ( */}
-        <Dialog open={open} onClose={handleClose}>
-          <form onSubmit={(e) => submitForUpdate(e, id)}>
-            <DialogTitle>Edit Class</DialogTitle>
-            <DialogContent sx={{ background: "white" }}>
-              <DialogContentText>
-                To edit this class, make the necessary changes, then click "Save
-                Changes."
-              </DialogContentText>
+      <Dialog open={open} onClose={handleClose}>
+        <form onSubmit={(e) => submitForUpdate(e, id)}>
+          <DialogTitle>Edit Class</DialogTitle>
+          <DialogContent sx={{ background: "white" }}>
+            <DialogContentText>
+              To edit this class, make the necessary changes, then click "Save
+              Changes."
+            </DialogContentText>
 
-              <TextField
-                value={dialogFormData.name}
-                name="name"
-                onChange={handleChange}
-                margin="dense"
-                id="name"
-                label={name}
-                type="text"
-                fullWidth
-                variant="standard"
-              />
+            <TextField
+              value={dialogFormData.name}
+              name="name"
+              onChange={handleChange}
+              margin="dense"
+              id="name"
+              label={name}
+              type="text"
+              fullWidth
+              variant="standard"
+            />
 
-              <TextField
-                value={dialogFormData.room_number}
-                name="room_number"
-                onChange={handleChange}
-                margin="dense"
-                id="room_number"
-                label={room_number}
-                type="text"
-                fullWidth
-                variant="standard"
-              />
-              <TextField
-                value={dialogFormData.time}
-                name="time"
-                onChange={handleChange}
-                margin="dense"
-                id="time"
-                label={time}
-                type="text"
-                fullWidth
-                variant="standard"
-              />
-              <TextField
-                value={dialogFormData.teacher}
-                name="teacher"
-                onChange={handleChange}
-                margin="dense"
-                id="teacher"
-                label={teacher}
-                type="text"
-                fullWidth
-                variant="standard"
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose}>Cancel</Button>
-              <Button type="submit" id={id}>
-                Save Changes
-              </Button>
-              <Button
-                onClick={() => {
-                  handleClassDelete(id);
-                  handleClose();
-                }}
-              >
-                Delete Class
-              </Button>
-            </DialogActions>
-          </form>
-        </Dialog>
+            <TextField
+              value={dialogFormData.room_number}
+              name="room_number"
+              onChange={handleChange}
+              margin="dense"
+              id="room_number"
+              label={room_number}
+              type="text"
+              fullWidth
+              variant="standard"
+            />
+            <TextField
+              value={dialogFormData.time}
+              name="time"
+              onChange={handleChange}
+              margin="dense"
+              id="time"
+              label={time}
+              type="text"
+              fullWidth
+              variant="standard"
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button type="submit" id={id}>
+              Save Changes
+            </Button>
+            <Button
+              onClick={() => {
+                handleClassDelete(id);
+                handleClose();
+              }}
+            >
+              Delete Class
+            </Button>
+          </DialogActions>
+        </form>
+      </Dialog>
       {/* ) : null} */}
     </div>
   );

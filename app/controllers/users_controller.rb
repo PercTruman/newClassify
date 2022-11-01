@@ -7,11 +7,11 @@ skip_before_action :authenticate_user, only: :create
 
     def create
         user = User.create!(user_params)
-            session[:user_id] = user.id #adds teacher instance to session
+            session[:user_id] = user.id
             render json: user, status: :ok
     end
 
-    def show #checking if logged in
+    def show
         if current_user
           render json: current_user, status: :ok
         else

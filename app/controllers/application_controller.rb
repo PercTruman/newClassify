@@ -7,11 +7,11 @@ rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
 
   private
   def current_user
-    @current_user ||= User.find_by_id(session[:user_id]) #find_by will return nil if not found, so you can generate exceptions. checks if we have a current_user stored; if not, make one
+    @current_user ||= User.find_by_id(session[:user_id])
   end
 
   def authenticate_user
-    render json: {errors: "Not Authorized"}, status: :unauthorized unless current_user #will throw an error unless a current_user exists. We aren't reading the @current_user variable, just seeing if there is one.
+    render json: {errors: "Not Authorized"}, status: :unauthorized unless current_user 
   end
 
   def render_not_found(error)
