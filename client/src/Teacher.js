@@ -1,15 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
-import {useNavigate} from "react-router-dom"
 import { UserContext } from "./context/UserContext";
 import Navbar from "./Navbar";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import Welcome from "./Welcome"
 
 function Teacher() {
-  const { user , loggedIn} = useContext(UserContext);
-  const navigate = useNavigate()
+  const { user, loggedIn } = useContext(UserContext);
   const [formData, setFormData] = useState({
     name: "",
   });
@@ -63,7 +62,7 @@ function Teacher() {
       </Grid>
     ));
 
-    if (loggedIn) {
+    if(loggedIn) {
   return (
     <div>
       <Navbar />
@@ -99,10 +98,13 @@ function Teacher() {
         </Grid>
       </Grid>
     </div>
-  )}
-  else {
-    navigate('/')
-  };
+  )
+} else {
+  return (
+  <Welcome />
+  )
 }
+}
+ 
 
 export default Teacher;

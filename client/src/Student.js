@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
-import {useNavigate} from "react-router-dom"
 import { UserContext } from "./context/UserContext";
 import Navbar from "./Navbar";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import Welcome from "./Welcome"
 
 function Student() {
   const { user, loggedIn } = useContext(UserContext);
@@ -15,8 +15,7 @@ function Student() {
     user_id: "",
   });
 
-  const navigate = useNavigate()
-
+console.log(loggedIn)
   useEffect(() => {
     setTheseStudents(user && user.students);
   }, [user]);
@@ -60,8 +59,7 @@ function Student() {
         {s.name}
       </Grid>
     ));
-
-    if (loggedIn) {
+ if (loggedIn){
      return (
         <div>
           <Navbar />
@@ -96,10 +94,13 @@ function Student() {
             </Grid>
           </Grid>
         </div>
-      )}
-      else {
-        navigate('/')
-      };
-}
+      )
+    } else {
+      return (
+      <Welcome />
+      )
+    }
+  }
+
 
 export default Student;

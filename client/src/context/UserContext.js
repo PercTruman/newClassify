@@ -12,7 +12,7 @@ function UserProvider({ children }) {
       .then((res) => res.json())
       .then((data) => {
         setUser(data);
-        data.error ? setLoggedIn(false) : setLoggedIn(true);
+          data.errors ? setLoggedIn(false) : setLoggedIn(true);
       });
   }, []);
 
@@ -21,7 +21,7 @@ function UserProvider({ children }) {
     setLoggedIn(true);
   };
 
-  const logout = () => {
+  const logout = (user) => {
     setUser({});
     setLoggedIn(false);
   };

@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Navbar from "./Navbar";
+import Welcome from "./Welcome"
 
 function Subject() {
   const { user, loggedIn} = useContext(UserContext);
@@ -69,7 +70,9 @@ function Subject() {
     </div>
   )}
   else {
-    navigate('/')
+  return (
+    <Welcome />
+  )
   };
 }
 

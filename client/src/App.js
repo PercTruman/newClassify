@@ -12,6 +12,7 @@ import Subject from "./Subject";
 import SubjectDetail from "./SubjectDetail";
 import Teacher from "./Teacher";
 import backgroundWithPencils from "./images/backgroundWithPencils.jpg"
+import diagonalPencils from "./images/diagonalPencils.jpg" 
 
 
 
@@ -19,12 +20,10 @@ function App() {
  return (
     <div className="App"
           style={{
-            backgroundImage: `url(${backgroundWithPencils})`,
-            margin: "0 auto",
+            backgroundImage: `url(${diagonalPencils})`,
             height: "100vh",
             width: "auto",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
+            backgroundSize: "cover"
           }} >
       
       <ThemeProvider  theme={theme}>
