@@ -19,7 +19,7 @@ function Subject() {
   useEffect(() => {
     setTheseSubjects(user && user.subjects);
   }, [user]);
-
+console.log(user.teachers)
 
   const subjectsList =  theseSubjects && theseSubjects.map((s) => (
         <Grid

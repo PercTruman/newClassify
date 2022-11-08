@@ -8,7 +8,7 @@ import TextField from "@mui/material/TextField";
 import Welcome from "./Welcome"
 
 function Teacher() {
-  const { user, loggedIn } = useContext(UserContext);
+  const { user, loggedIn, setUser } = useContext(UserContext);
   const [formData, setFormData] = useState({
     name: "",
   });
@@ -34,7 +34,7 @@ function Teacher() {
     }).then((res) => {
       if (res.ok) {
         res.json().then((newTeacherList) => {
-          setTheseTeachers(newTeacherList);
+          setUser({...user, teachers: newTeacherList})
           setFormData({ name: "", user_id: "" });
         });
       } else {

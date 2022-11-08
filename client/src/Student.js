@@ -8,14 +8,14 @@ import TextField from "@mui/material/TextField";
 import Welcome from "./Welcome"
 
 function Student() {
-  const { user, loggedIn } = useContext(UserContext);
+  const { user, setUser, loggedIn } = useContext(UserContext);
   const [theseStudents, setTheseStudents] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     user_id: "",
   });
 
-console.log(loggedIn)
+
   useEffect(() => {
     setTheseStudents(user && user.students);
   }, [user]);
@@ -37,7 +37,7 @@ console.log(loggedIn)
     }).then((res) => {
       if (res.ok) {
         res.json().then((newStudentList) => {
-          setTheseStudents(newStudentList);
+          setUser({...user, students: newStudentList})
           setFormData({ name: "", user_id: "" });
         });
       } else {
@@ -50,8 +50,8 @@ console.log(loggedIn)
   };
 
   const studentsList =
-    theseStudents &&
-    theseStudents.map((s) => (
+    user &&
+    user.students.map((s) => (
       <Grid
         key={s.id}
         sx={{ padding: "10px", margin: "auto", textAlign: "center" }}
